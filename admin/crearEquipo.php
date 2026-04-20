@@ -7,4 +7,4 @@ $liga = $_POST["ligaP"];
 $consultaEquipo = "INSERT INTO equipos (equipo, liga) VALUES ('$nombre','$liga')";
 $conn->query($consultaEquipo);
 
-header("Location: ../panelControl.php");
+header("Location: ../panelControl.php"); 
