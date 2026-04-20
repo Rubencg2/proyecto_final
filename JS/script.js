@@ -96,6 +96,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 datosParaEnviar.append('filtro_equipo', equipoActivo.value);
             }
 
+            const selectTalla = document.getElementById('tallasR');
+            if (selectTalla) {
+                datosParaEnviarR.append('filtro_tallas', selectTalla.value);
+            }
+
             datosParaEnviar.append('id_categoria', document.getElementById('id_categoria')?.value || '');
 
 
@@ -276,6 +281,10 @@ function actualizarFiltrosYPrecio() {
     // Filtro de Equipo
     const equipoActivo = document.querySelector('input[name="filtro_equipo"]:checked');
     if (equipoActivo) datosParaEnviar.append('filtro_equipo', equipoActivo.value);
+
+    // Filtro de Tallas
+    const tallaActiva = document.querySelector('input[name="filtro_tallas"]:checked');
+    if (tallaActiva) datosParaEnviar.append('filtro_tallas', tallaActiva.value);
 
     // Filtro de Precio (AQUÍ ENVIAMOS EL VALOR DEL RANGO)
     datosParaEnviar.append('rango', val);

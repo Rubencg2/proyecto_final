@@ -14,6 +14,14 @@ if(isset($_POST["filtro_equipo"]) && $_POST["filtro_equipo"] != "todos"){
     $where .= " AND id_equipo=$id_equipo";
 }
 
+if(isset($_POST["filtro_tallas"]) && $_POST["filtro_tallas"] != "todos"){
+    $id_talla = $_POST["filtro_tallas"];
+    $where .= " AND id IN (
+        SELECT id_producto FROM producto_tallas 
+        WHERE id_talla = '$id_talla' AND stock > 0
+    )";
+}
+
 if(isset($_POST["rango"])){
     $precio_max = $_POST["rango"];
     $where .= " AND precio<='$precio_max'";

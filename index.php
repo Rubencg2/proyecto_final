@@ -70,7 +70,7 @@ session_start();
             <br>
             <?php
                 //CONSULTA PARA MOSTRAR LOS EQUIPOS DISPONIBLES EN FILTROS 
-                $consultaEquipos = "SELECT nombre FROM equipos";
+                $consultaEquipos = "SELECT * FROM equipos";
                 $datosEquipos = $conn->query($consultaEquipos);
                 ?>
                 <h4 class="text-equipos">Equipos</h4>
@@ -107,9 +107,30 @@ session_start();
                     </div>
             </div>
 
+            <?php
+                //CONSULTA PARA MOSTRAR LAS TALLAS
+                $consultaTallas = "SELECT * FROM tallas";
+                $datosTallas = $conn->query($consultaTallas);
+                ?>
+                <h4 class="text-tallas">Tallas</h4>
+                <input type="radio" id="todos" name="filtro_tallas" value="todos" class="filtro">
+                <label for="todos">Todas las tallas</label><br>
+                <?php
+                while($fila=$datosTallas->fetch_assoc()){
+                ?>
+                    <input type="radio" id=<?=$fila["id"]?> name="filtro_tallas" value=<?=$fila["id"]?> class="filtro">
+                    <label for=<?=$fila["id"]?>><?=$fila["talla"]?></label><br>
+                <?php
+                }
+                ?>
+
+                <br>
+
 
 
             <!-- FILTROS PARA MODO RESPONSIVO -->
+
+            <!-- FILTROS PARA LIGAS -->
                 <div class="filtros-responsivo">
                     <div class="resposivo-ligas">
                         <select name="ligasRR" id="ligasR">
@@ -125,6 +146,7 @@ session_start();
                         </select>
                     </div>
                     
+                    <!-- FILTROS PARA EQUIPOS -->
                     <div class="resposivo-equipos">
                         <select name="equiposR" id="equiposR">
                             <option value="todos">Todos los equipos</option>
@@ -133,6 +155,21 @@ session_start();
                             while($fila=$datosEquipos->fetch_assoc()){
                                 ?>
                                 <option value="<?=$fila["id"]?>"><?=$fila["equipo"]?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+
+                    <!-- FILTROS PARA TALLAS -->
+                    <div class="resposivo-equipos">
+                        <select name="tallasR" id="tallasR">
+                            <option value="todos">Todas las tallas</option>
+                            <?php
+                            $datosTallas->data_seek(0);
+                            while($fila=$datosTallas->fetch_assoc()){
+                                ?>
+                                <option value="<?=$fila["id"]?>"><?=$fila["talla"]?></option>
                                 <?php
                             }
                             ?>
