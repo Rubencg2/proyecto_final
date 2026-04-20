@@ -1,3 +1,23 @@
+//Funcion para eliminar favoritos
+function eliminarFavorito(boton, idProducto) {
+    let formData = new FormData();
+    formData.append('id_producto', idProducto);
+
+    fetch('../anadirFavorito.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+        if (data === "eliminado") {
+            const tarjeta = boton.closest('.col');
+            tarjeta.remove();
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+
 const menuOpciones = document.getElementById("menuOpciones");
 const contenedor = document.getElementById("contenido");
 const perfil = document.getElementById("perfil");

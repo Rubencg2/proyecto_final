@@ -4,7 +4,7 @@ function gestionarFavorito(idProducto) {
     let formData = new FormData();
     formData.append('id_producto', idProducto);
 
-    fetch('añadirFavorito.php', {
+    fetch('anadirFavorito.php', {
         method: 'POST',
         body: formData
     })

@@ -416,6 +416,25 @@ footer{
 }
 
 
+.corazon {
+    position: absolute;
+    bottom: 60px;  
+    right: 15px;   
+    cursor: pointer;
+    width: 50px;  
+    transition: transform 0.2s ease;
+    z-index: 10;
+}
+
+.corazon:hover {
+    transform: scale(1.2);
+}
+
+.corazon img {
+    width: 100%;
+    height: auto;
+}
+
 
 
 /* ULTIMO PEDIDO */

@@ -32,12 +32,18 @@ session_start();
             <img src=<?=$filas["url_imagen"]?> class="imgP">
             <?php
             if(isset($_SESSION["email"])){
+                // Consulta si ya está en favoritos
+                $consultaFavorito = "SELECT * FROM favoritos WHERE id_usuario = '{$_SESSION['id_usuario']}' AND id_producto = $id";
+                $resultadoFavorito = $conn->query($consultaFavorito);
+                $esFavorito = $resultadoFavorito->num_rows > 0;
                 ?>
                 <div class="corazon" onclick="gestionarFavorito(<?=$id?>)">
-                <img src="./imagenes/favorito.png" class="favorito" id="corazon-vacio">
-                <img src="./imagenes/favoritoAñadido.png" class="favoritoAñadido" id="corazon-lleno" style="display: none;">
-            </div>
-            <?php
+                    <img src="./imagenes/favorito.png" class="favorito" id="corazon-vacio" 
+                        style="<?= $esFavorito ? 'display: none;' : '' ?>">
+                    <img src="./imagenes/favoritoAñadido.png" class="favoritoAñadido" id="corazon-lleno" 
+                        style="<?= $esFavorito ? '' : 'display: none;' ?>">
+                </div>
+                <?php
             }
             ?>
             

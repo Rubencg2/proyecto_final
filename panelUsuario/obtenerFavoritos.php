@@ -16,21 +16,25 @@ $datos = $conn->query($consultaFavoritos);
     <?php
     while($filasP=$datos->fetch_assoc()){
         ?>
-        <div class="col"> <form action="detallesProducto.php" method="post" class="h-100">
+        <div class="col">
             <div class="card h-100 w-100">
                 <img src="<?=$filasP["url_imagen"]?>" class="card-img-top" alt="...">
                 <div class="card-body d-flex flex-column">
-                    <input type="hidden" name="id_producto" value="<?=$filasP["id"]?>">
                     <h5 class="card-title"><?=$filasP["nombre"]?></h5>
                     <p class="card-text"><?=$filasP["descripcion"]?></p>
                     <div class="mt-auto">
                         <h5 class="card-text"><?=$filasP["precio"]?>€</h5>
-                        <button class="btn btn-primary w-100" type="submit" name="verDetalles">Ver detalles</button>
+                        <form action="../detallesProducto.php" method="post">
+                            <input type="hidden" name="id_producto" value="<?=$filasP["id"]?>">
+                            <button class="btn btn-primary w-100 mb-2" type="submit" name="verDetalles">Ver detalles</button>
+                        </form>
+                        <button class="btn btn-danger w-100" onclick="eliminarFavorito(this, <?=$filasP['id'] ?>)">
+                            ❤️ Quitar de favoritos
+                        </button>
                     </div>
                 </div>
             </div>
-        </form>
-    </div>
+        </div>
     <?php
     }
     ?>

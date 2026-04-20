@@ -185,7 +185,7 @@ session_start();
 
         </div>
         <?php include("footer.html");?>
-    </div>
+    </div> 
     <script src="./JS/scriptPerfil.js"></script>
     <?php
     
