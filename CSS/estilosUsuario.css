@@ -727,4 +727,16 @@ footer{
         width: 40px;
         height: 40px;
     }
+
+    .informacion{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .opciones{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+    }
 }

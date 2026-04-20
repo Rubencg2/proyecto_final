@@ -119,6 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const selectLiga = document.getElementById('ligasR');
     const selectEquipo = document.getElementById('equiposR');
+    const selectTalla = document.getElementById('tallasR');
 
     function filtrarResponsivo() {
         contenedor.innerHTML = `
@@ -139,6 +140,11 @@ document.addEventListener('DOMContentLoaded', () => {
             datosParaEnviarR.append('filtroR-equipos', selectEquipo.value);
         }
 
+        
+        if (selectTalla) {
+            datosParaEnviarR.append('filtroR-tallas', selectTalla.value);
+        }
+
         datosParaEnviarR.append('id_categoria', document.getElementById('id_categoria')?.value || '');
 
         fetch('obtenerProductos.php', {
@@ -152,9 +158,9 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(err => console.error("Error al filtrar:", err));
     }
 
-    
     if (selectLiga) selectLiga.addEventListener('change', filtrarResponsivo);
     if (selectEquipo) selectEquipo.addEventListener('change', filtrarResponsivo);
+    if (selectTalla) selectTalla.addEventListener('change', filtrarResponsivo);
 });
 
 

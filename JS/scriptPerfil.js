@@ -3,7 +3,7 @@ function eliminarFavorito(boton, idProducto) {
     let formData = new FormData();
     formData.append('id_producto', idProducto);
 
-    fetch('../anadirFavorito.php', {
+    fetch('./anadirFavorito.php', {
         method: 'POST',
         body: formData
     })

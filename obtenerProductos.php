@@ -27,6 +27,8 @@ if(isset($_POST["rango"])){
     $where .= " AND precio<='$precio_max'";
 }
 
+
+
 //Filtros para responsivo
 if(isset($_POST["filtroR-ligas"]) && $_POST["filtroR-ligas"]!= "todas"){
     $id_ligaR = $_POST["filtroR-ligas"];
@@ -43,6 +45,14 @@ if(isset($id_categoria) && !empty($id_categoria)){
 }
 else if(isset($_POST["id_categoria"]) && !empty($_POST["id_categoria"])){
     $where .= " AND id_categoria = '" . $_POST["id_categoria"] . "'";
+}
+
+if(isset($_POST["filtroR-tallas"]) && $_POST["filtroR-tallas"] != "todos"){
+    $id_tallaR = $_POST["filtroR-tallas"];
+    $where .= " AND id IN (
+        SELECT id_producto FROM producto_tallas 
+        WHERE id_talla = '$id_tallaR' AND stock > 0
+    )";
 }
 
 $consultaProductos = "SELECT * FROM productos" . $where;

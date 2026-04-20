@@ -104,10 +104,9 @@ session_start();
                         max="<?=$filaP['precio']?>" 
                         value="<?=$filaP['precio']?>" 
                         step="1">
-                    </div>
-            </div>
+                </div>
 
-            <?php
+                <?php
                 //CONSULTA PARA MOSTRAR LAS TALLAS
                 $consultaTallas = "SELECT * FROM tallas";
                 $datosTallas = $conn->query($consultaTallas);
@@ -125,6 +124,9 @@ session_start();
                 ?>
 
                 <br>
+            </div>
+
+            
 
 
 
@@ -162,7 +164,7 @@ session_start();
                     </div>
 
                     <!-- FILTROS PARA TALLAS -->
-                    <div class="resposivo-equipos">
+                    <div class="resposivo-tallas">
                         <select name="tallasR" id="tallasR">
                             <option value="todos">Todas las tallas</option>
                             <?php
