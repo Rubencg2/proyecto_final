@@ -1,0 +1,473 @@
+/* CABECERA */
+header{
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    align-items: center;
+    background-color: #0056b3;
+    justify-content: space-between;
+    padding: 1% 5%;
+    position: relative;
+}
+
+
+.logo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.img-logo-movil{
+    display: none;
+}
+
+.img-logo-escritorio{
+    width: 200px;
+    height:auto;
+}
+
+
+.logo h2{
+    color: white;
+}
+
+.img-cab{
+    width: 35px;
+    height: 35px;
+}
+
+.iconos{
+    display: flex;
+    gap: 50px;
+}
+
+.iconos-menu{
+    display: flex;
+    gap: 50px;
+}
+
+/* BARRA DE BUSQUEDA */
+.barra-desplegable {
+    display: none; 
+    position: absolute;
+    top: 100px;
+    right: 20px;
+    background-color: #002366;
+    padding: 15px;
+    border-radius: 0 0 10px 10px;
+    z-index: 1000;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+}
+
+.barra-desplegable.activo {
+    display: flex;
+}
+
+.busqueda {
+    border-radius: 5px;
+    padding: 8px;
+    width: 300px;
+    border: none;
+}
+
+.btn-buscar-submit {
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    margin-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-azul {
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    margin-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-azul-oscuro {
+    background-color: #002366;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    margin-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+
+/* MENU DE .navEGACION */
+.nav{
+    height: 70px;
+    background-color: #002366;
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    display: flex; 
+    align-items: stretch;
+    justify-content: center;
+}
+
+
+.nav ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    list-style-type: none;
+    color: white;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.nav a{
+    display: flex;
+    align-items: center; 
+    padding: 0 25px;  
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    height: 100%;
+}
+
+.nav li {
+    display: flex;
+    height: 100%;
+}
+
+.nav a:hover{
+    background-color: #0056b3;
+}
+
+.login-Responsivo,
+.carrito-Responsivo {
+  display: none !important; 
+}
+
+.panel-Responsivo{
+    display: none !important;
+}
+
+a{
+    text-decoration: none;
+}
+
+.ocultar{
+    display: none;
+}
+
+.ver{
+    display: flex !important;
+}
+
+
+/* MENU HAMBURGUESA */
+.hamburguesa{
+    position: relative;
+    display: none;
+    margin: 0;
+}
+
+.img-hamburguesa{
+    position: absolute;
+    display: flex;
+    width:50px; 
+    height:50px;
+}
+
+.img-cerrar{
+    position: absolute;
+    display: none;
+    width:30px; 
+    height:30px;
+}
+
+/* CONTENIDO */
+.general-carrito, 
+.general-carrito * {
+    box-sizing: border-box;
+}
+
+.general-carrito {
+    display: grid;
+    grid-template-columns: 1fr 380px; 
+    gap: 30px;
+    padding: 40px 5%;
+    background-color: #f4f7f6;
+    min-height: 80vh;
+    align-items: start;
+}
+
+/* COLUMNA IZQUIERDA */
+.carrito-lista {
+    width: 100%;
+}
+
+.carrito-lista h2 {
+    color: #002366;
+    margin-bottom: 25px;
+    font-weight: bold;
+}
+
+/* CADA PRODUCTO */
+.cart-item {
+    display: grid;
+    grid-template-columns: 120px 1fr auto;
+    align-items: center;
+    background: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    border: 1px solid #e6f0ff;
+}
+
+.cart-item-img img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    display: block;
+}
+
+.cart-item-details { 
+    padding: 0 20px; 
+}
+
+.cart-item-details h4 { 
+    color: #002366; 
+    margin: 0 0 5px 0; 
+    font-size: 1.2rem; 
+}
+
+.cart-item-details p {
+    margin-bottom: 5px;
+}
+
+.cart-item-details .precio { 
+    font-weight: bold; 
+    color: #0056b3; 
+}
+
+/* SELECTOR DE CANTIDAD */
+.qty-selector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e6f0ff;
+    border-radius: 20px;
+    padding: 5px 10px;
+}
+
+.qty-selector button {
+    border: none;
+    background: none;
+    color: #002366;
+    font-weight: bold;
+    padding: 0 8px;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+.qty-selector input {
+    width: 35px;
+    text-align: center;
+    border: none;
+    background: none;
+    font-weight: bold;
+    outline: none;
+}
+/* COLUMNA DERECHA */
+.carrito-resumen {
+    width: 100%;
+    position: sticky;
+}
+
+.resumen-card {
+    background: #002366;
+    color: white;
+    padding: 30px;
+    border-radius: 20px;
+    position: sticky;
+    top: 20px;
+    z-index: 10;
+}
+
+.resumen-card h3 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.resumen-fila {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.total-fila {
+    font-size: 1.6rem;
+    font-weight: bold;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding-top: 15px;
+    margin-top: 15px;
+}
+
+/* BOTON DE PAGO */
+.btn-pagar {
+    width: 100%;
+    background: white;
+    color: #002366;
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-pagar:hover {
+    background: #e6f0ff;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.error{
+    color:red
+}
+
+.ver{
+    display: flex !important;
+}
+
+.panel-Responsivo{
+    display: none;
+}
+
+
+
+/* MODO RESPONSIVO */
+@media screen and (max-width: 768px) {
+
+    *{
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+
+    header{
+        padding: 5px 30px;
+    }
+
+     .nav {
+        display: flex; 
+        position: fixed;
+        top: 0;
+        right: -100%; 
+        width: 80%; 
+        height: 100vh;
+        transition: right 0.4s ease-in-out; 
+        flex-direction: column;
+        align-items: center;
+        z-index: 1000;
+        justify-content: flex-start; 
+        padding-top: 100px;
+    }
+
+    .nav.abierto {
+        right: 0;
+    }
+
+    .bloquear-scroll {
+        overflow: hidden;
+        height: 100vh;
+    }
+
+    .nav ul {
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 30px; 
+        height: auto;
+
+    }
+    .nav li {
+        width: 100%;
+        align-items: center;
+        height: 50px;
+    }
+    .nav a {
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        padding: 0;
+    }
+
+    .hamburguesa {
+        display: flex;
+        z-index: 1100; 
+        cursor: pointer;
+    }
+    
+    .img-hamburguesa, .img-cerrar {
+        position: static;
+        width: 40px;
+        height: 40px;
+    }
+
+    .img-logo-movil{
+        display: flex;
+        width: 220px;
+        height: auto;
+    }
+
+    .img-logo-escritorio{
+        display: none;
+    }
+
+    .iconos-menu{
+        display: none;
+    }
+
+    .general-carrito{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .cart-item {
+        grid-template-columns: 100px 1fr; 
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .card-details {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .cart-item-details {
+        padding: 0;
+    }
+
+    .cart-item-actions {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 20px;
+        justify-content: flex-start;
+        text-align: left !important;
+    }
+
+
+    .panel-Responsivo{
+        display: flex !important;
+    }
+}

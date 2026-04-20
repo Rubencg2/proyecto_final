@@ -1,0 +1,872 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+aside.menu{grid-area: menu;}
+section.informacion{grid-area: informacion;}
+
+.general-panel{
+    display: grid;
+    grid-template-columns: 20% 1fr;
+    grid-template-areas: 
+    'menu informacion';
+    min-height: 100vh;
+    width: 100%;
+    max-width: 100vw;
+    margin: 0;
+    transition: grid-template-columns 0.4s ease-in-out;
+}
+
+.general-panel-cerrado{
+    grid-template-columns: 5% 1fr;
+}
+
+
+/* MENU IZQUIERDA */
+.menu{
+    background-color: #002366;
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    height: 100%;
+    gap: 50px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    position: sticky;
+    left: 0;
+    overflow: hidden;
+}
+
+.menu-cerrado{
+    left: -15%;
+}
+
+
+/* LOGO */
+.logo{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+}
+
+.img-logo{
+    width: 80%;
+    height: auto;
+    display: block;
+}
+
+.flecha-iz{
+    width: 30px;
+    height: 40px;
+}
+
+.flecha-der{
+    width: 30px;
+    height: 40px;
+    display: none;
+}
+
+
+.general{
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    position: sticky;
+}
+
+
+/* PARTE GESTION  */
+.general-gestion{
+    border: 1px solid black;
+    border-radius: 10px;
+    position: sticky;
+}
+
+.gestion{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+    align-items: center;
+}
+
+.btn-gestion{
+    background-color: #002366;
+    border: none;
+    font-size: 1.4rem;
+    color: white;
+}
+
+.lista-gestion{
+    list-style: none;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 1.1rem;
+    padding: 10px 40px;
+}
+
+.lista-gestion li{
+    cursor: pointer;
+}
+
+.lista-gestion li:hover{
+    border-bottom: 1px solid white;
+}
+
+
+
+/* PARTE ANALITICAS */
+.general-analiticas{
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    position: sticky;
+}
+
+.analiticas{
+    text-decoration: none;
+    font-size: 1.4rem;
+    color: white;
+    cursor: pointer;
+}
+
+
+
+/* MOSTRAR / OCULTAR */
+.mostrar-flechas{
+    display: flex;
+}
+
+.ocultar-flechas{
+    display: none;
+}
+
+.ocultar{
+    display: none;
+}
+
+
+
+
+/* ZONA DE INFORMACION */
+.informacion {
+    flex: 1;
+    padding: 40px;
+    background-color: #f4f7f6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    width: 100%; 
+    overflow-x: hidden;
+}
+
+.titulo{
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+
+/* SALUDO */
+.saludo{
+    width: 100%;
+    padding: 30px 10px;
+}
+
+
+/* CONTENEDOR PRINCIPAL DE LAS TARJETAS */
+.dashboard {
+    width: 100%;
+    flex-wrap: wrap;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ESTILO DE CADA TARJETA */
+.card {
+    width: 200px;
+    height: 200px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid #e0e0e0;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    margin-right: 15px;
+    background: #f0f2f5;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.card-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-title {
+    color: #6c757d;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.card-value {
+    color: #001f4d; 
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.card.alert {
+    border-left: 5px solid #ff4d4d; 
+}
+
+.card.alert .card-value {
+    color: #ff4d4d;
+}
+
+/* Agregar producto */
+.formulario-nuevo-producto {
+    width: 100%;
+    max-width: 600px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* BOTONES */
+.botones{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 30%;
+    margin-top: 50px;
+}
+
+
+.btn-principal{
+    background-color: #001f4d;
+    color: white;
+    padding: 30px;
+    border-radius: 20px;
+    font-size: 1.4rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-principal:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+}
+
+
+
+/* TABLAS */
+.tabla{
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.tabla thead tr {
+    background-color: #0056b3; 
+    color: #ffffff;
+    text-align: left;
+}
+
+.tabla th,
+.tabla td {
+    padding: 12px 15px; 
+}
+
+.tabla tbody tr {
+    border-bottom: 1px solid #dddddd; 
+}
+
+.tabla tbody tr:nth-child(even) {
+    background-color: #f3f3f3;
+}
+
+.img-papelera{
+    width: 20px;
+    height: auto;
+}
+
+.img-papelera:hover{
+    transform: scale(1.3);
+}
+
+.btn-papelera{
+    background: none;
+    border: none;
+}
+
+.img-producto{
+    width: 70px;
+    height: auto;
+}
+
+.contenedor-tabla-productos {
+    width: 100% !important;
+    padding: 0;
+    margin: 0;
+}
+
+/* Fuerza a la tabla a expandirse */
+
+.btn-editar {
+  background: #1a2a4a;
+  color: #fff;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.btn-editar:hover {
+  background: #378ADD;
+}
+
+.btn-stock {
+  background: #1a2a4a;
+  color: #fff;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.btn-stock:hover {
+  background: #378ADD;
+}
+
+
+.btn-productos{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+
+/* EDITAR PRODUCTO */
+.modal {
+    display: none;
+    z-index: 9999;
+    align-items: center;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.modal-content {
+    margin: 15% auto; 
+    padding: 25px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    font-family: sans-serif;
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: #999;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #ff4d4d;
+}
+
+#preview-imagen-actual{
+    width: 110px; 
+    height: 110px; 
+    object-fit: cover; 
+    border-radius: 10px; 
+    border: 1px solid #ddd; 
+    display: block;
+}
+
+#edit-imagen{
+    margin-bottom: 14px; 
+    font-size: 14px;
+}
+
+#formEditar h3 {
+    margin-bottom: 20px;
+    color: #2c3e50;
+    text-align: center;
+}
+
+#formEditar label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #555;
+    font-size: 14px;
+}
+
+#formEditar input, 
+#formEditar textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 15px;
+}
+
+#formEditar textarea {
+    height: 80px;
+    resize: none;
+}
+
+.btn-guardar {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.2s;
+}
+
+.btn-guardar:hover {
+    background-color: #0056b3;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ZONA DE ANALITICAS */
+.total{
+    width: 100%;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 25%;
+    justify-content: center;
+}
+
+.info{
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    color: #6c757d;
+    font-size: 1.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.value {
+    color: #001f4d; 
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.grid-analiticas {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.card-grafico {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    min-height: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+}
+
+.card-grafico h3 {
+    margin-bottom: 15px; 
+    font-size: 1.1rem; 
+    color: #333; 
+}
+
+.canvas-container {  
+    position: relative; 
+    flex-grow: 1; 
+    width: 100%;
+    height: 300px;
+}
+
+/* Ocultar botón hamburguesa en escritorio */
+.btn-abrir-menu {
+    display: none;
+}
+
+
+
+
+/* TABLAS RESPONSIVAS */
+.tabla-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+/* Cabecera con título y botón alineados */
+.tabla-header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tabla-header h1 {
+    font-size: 1.6rem;
+    color: #001f4d;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+/*CONTENEDOR BUSCADOR */
+.dt-search {
+    margin-bottom: 15px;
+}
+
+.dt-search input {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 6px 12px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.dt-search input:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 5px rgba(0, 86, 179, 0.2);
+}
+
+/*BOTONES DE PAGINACIÓN */
+.dt-paging .dt-paging-button {
+    border-radius: 4px !important;
+    border: 1px solid #ddd !important;
+    background: #f8f9fa !important;
+    padding: 5px 12px !important;
+    margin-left: 5px !important;
+}
+
+.dt-paging .dt-paging-button.current {
+    background: #0056b3 !important;
+    color: white !important;
+    border-color: #0056b3 !important;
+}
+
+.dt-paging .dt-paging-button:hover:not(.current) {
+    background: #e9ecef !important;
+    color: #0056b3 !important;
+}
+
+/*SELECTOR DE REGISTROS*/
+.dt-length select {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+
+/*RESPONSIVO*/
+@media screen and (max-width: 768px) {
+
+    /* Flechas de escritorio siempre ocultas en móvil */
+    .flecha-iz,
+    .flecha-der {
+        display: none !important;
+    }
+
+    /* Logo */
+    .logo {
+        justify-content: flex-start;
+        align-items: center;
+        gap: 20px;
+        padding: 15px 0px 0px 40px;
+    }
+
+    .img-logo {
+        width: auto;
+        height: 60px;
+        max-width: 200px;
+        display: block;
+    }
+
+    /* Botón hamburguesa */
+    .btn-abrir-menu {
+        display: block;
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        z-index: 9999;
+        background: #002366;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 14px;
+        font-size: 1.4rem;
+        cursor: pointer;
+    }
+
+    /* El grid pasa a una sola columna */
+    .general-panel {
+        grid-template-columns: 1fr;
+        grid-template-areas: 'informacion';
+    }
+
+    /* El menú flota por encima */
+    .menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 75%;
+        height: 100vh;
+        z-index: 1000;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        overflow-y: auto;
+    }
+
+    .menu.menu-abierto {
+        transform: translateX(0);
+    }
+
+    /* Overlay oscuro */
+    .overlay-menu {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+    }
+
+    .overlay-menu.visible {
+        display: block;
+    }
+
+    /* Separar el título del botón hamburguesa */
+    .titulo {
+        margin-top: 70px;
+    }
+
+    .informacion {
+        padding: 20px 12px;
+    }
+
+    /* Tarjetas dashboard */
+    .dashboard {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding: 10px 0;
+    }
+
+    .card {
+        width: 95%;
+        height: auto;
+        padding: 15px;
+    }
+
+    /* Botones */
+    .botones {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        margin-top: 30px;
+    }
+
+    .btn-principal {
+        width: 90%;
+        text-align: center;
+        padding: 18px;
+        font-size: 1.1rem;
+    }
+
+    /* Gráficas en columna */
+    .grid-analiticas {
+        grid-template-columns: 1fr;
+    }
+
+    .total{
+        display: flex;
+        flex-direction: column;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    /* Modal en móvil */
+    .modal-content {
+        margin: 5% auto;
+        width: 95%;
+        padding: 20px 15px;
+    }
+
+    .contenedor-tabla-productos {
+        overflow-x: auto;
+    }
+
+    .titleStock{
+        margin-top: 50px;
+    }
+
+
+    /* Tabla de productos */
+    .tabla-header{
+        margin-top: 60px;
+    }
+
+
+    #contenedor-tabla-productos, 
+    .informacion {
+        overflow: visible !important;
+        width: 100% !important;
+        padding: 10px !important;
+    }
+
+    .tabla {
+        display: block !important;
+        width: 100% !important;
+        border: none !important;
+    }
+
+    .tabla thead {
+        display: none !important;
+    }
+
+    .tabla tbody, .tabla tr, .tabla td {
+        display: block !important;
+        width: 100% !important;
+    }
+
+    .tabla tr {
+        margin-bottom: 25px !important;
+        border: 1px solid #ccc !important;
+        border-radius: 10px !important;
+        background: #fff !important;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
+        height: auto !important; /* IMPORTANTE: deja que crezca */
+        overflow: hidden;
+    }
+
+    .tabla td {
+        display: flex !important;
+        justify-content: space-between !important; /* Separa la etiqueta del contenido */
+        align-items: flex-start !important; /* Alinea arriba para descripciones largas */
+        padding: 12px 10px !important;
+        border-bottom: 1px solid #eee !important;
+        height: auto !important;
+        min-height: 45px !important;
+        gap: 15px; /* Espacio mínimo entre etiqueta y texto */
+    }
+
+    /* Quitamos el posicionamiento absoluto para que el texto no se monte */
+    .tabla td::before {
+        content: attr(data-label);
+        position: static !important; /* Cambiado de absolute a static */
+        font-weight: bold;
+        color: #002366;
+        font-size: 0.8rem;
+        min-width: 100px; /* Ancho fijo para las etiquetas de la izquierda */
+        text-align: left;
+    }
+
+    /* El valor (el texto de la base de datos) */
+    .tabla td {
+        text-align: right;
+        word-break: break-word; /* Rompe palabras largas si es necesario */
+        line-height: 1.4;
+    }
+
+    /* Caso especial para la celda de Opciones/Botón */
+    .tabla td[data-label="Opciones"] {
+        display: block !important;
+        text-align: center !important;
+    }
+    
+    .tabla td[data-label="Opciones"]::before {
+        display: none; /* No queremos que diga "OPCIONES" encima del botón */
+    }
+
+    /* Ajuste para que la imagen no se estire */
+    .img-producto {
+        width: 80px !important;
+        height: auto !important;
+        border-radius: 5px;
+    }
+
+    /* Ajuste para la descripción (que suele ser larga) */
+    .tabla td[data-label="Descripción"] {
+        flex-direction: column;
+        align-items: flex-end;
+        text-align: right;
+        height: auto !important;
+    }
+
+    /* Botón al final */
+    .btn-editar {
+        width: 100% !important;
+        display: block !important;
+    }
+}
