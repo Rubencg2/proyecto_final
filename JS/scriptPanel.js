@@ -223,6 +223,8 @@ pedidos.addEventListener("click",()=>{
 // EDITAR PRODUCTOS
 document.addEventListener("click", (e) => {
     const esBtnEditar = e.target.classList.contains("btn-editar") && e.target.getAttribute("data-id");
+    const esBtnDeshabilitar = e.target.classList.contains("btn-deshabilitar") && e.target.getAttribute("data-idD");
+    const esBtnHabilitar = e.target.classList.contains("btn-habilitar") && e.target.getAttribute("data-idH");
     const esImgProducto = e.target.classList.contains("img-producto") || e.target.classList.contains("img-producto-movil");
 
     if (esBtnEditar || esImgProducto) {
@@ -252,6 +254,30 @@ document.addEventListener("click", (e) => {
                 modal.style.display = "block";
             })
             .catch(err => console.error("Error al obtener datos:", err));
+    }
+
+    if(esBtnDeshabilitar){
+        const idProducto = e.target.getAttribute("data-idD");
+
+        fetch(`./admin/deshabilitarProducto.php?id=${idProducto}`)
+        .then(
+            setTimeout(() => {
+                location.reload();
+            }, 1000)
+        )
+        .catch(err => console.error("Error al deshabilitar el producto:", err));
+    }
+
+    if(esBtnHabilitar){
+        const idProducto = e.target.getAttribute("data-idH");
+
+        fetch(`./admin/habilitarProducto.php?id=${idProducto}`)
+        .then(
+            setTimeout(() => {
+                location.reload();
+            }, 1000)
+        )
+        .catch(err => console.error("Error al habilitar el producto:", err));
     }
 });
 

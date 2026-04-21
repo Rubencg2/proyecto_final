@@ -264,7 +264,7 @@ aside{
     padding: 50px;
     margin: 15px;
     border-radius: 10px;
-    background-color: #e6f0ff;
+    background: linear-gradient(135deg, #a8c8f8 0%, #c4a8f0 100%);
 }
 
 

@@ -56,14 +56,14 @@ if(isset($_POST["filtroR-tallas"]) && $_POST["filtroR-tallas"] != "todos"){
 }
 
 // Configuración
-$por_pagina = 5;
+$por_pagina = 10;
 $pagina_actual = isset($_GET['p']) ? (int)$_GET['p'] : 1;
 if ($pagina_actual < 1) $pagina_actual = 1;
 
 $inicio = ($pagina_actual - 1) * $por_pagina;
 
 
-$consultaProductos = "SELECT * FROM productos" . $where . " LIMIT $inicio, $por_pagina";
+$consultaProductos = "SELECT * FROM productos" . $where . " AND estado='activo' LIMIT $inicio, $por_pagina";
 
 // Contar cuántos hay en total para saber cuándo detenerse
 $consultaConteo = "SELECT COUNT(*) as total FROM productos" . $where;

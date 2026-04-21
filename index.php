@@ -111,7 +111,7 @@ session_start();
                 $consultaTallas = "SELECT * FROM tallas";
                 $datosTallas = $conn->query($consultaTallas);
                 ?>
-                <h4 class="text-tallas">Tallas</h4>
+                <h4 class="text-ligas">Tallas</h4>
                 <input type="radio" id="todos" name="filtro_tallas" value="todos" class="filtro">
                 <label for="todos">Todas las tallas</label><br>
                 <?php

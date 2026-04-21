@@ -184,10 +184,9 @@ session_start();
                     $totalFinal = ($total < 100) ? ($total + 5.99) : $total;
                     ?>
                     <span id="resumen-final"><?= number_format($totalFinal, 2) ?>€</span>
-
-                    <button class="btn-pagar" id="btn-procesar">PROCESAR PEDIDO</button>
-
                 </div>
+
+                <button class="btn-pagar" id="btn-procesar">PROCESAR PEDIDO</button>
             </div>
             <?php
         }

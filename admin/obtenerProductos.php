@@ -46,9 +46,9 @@ if($productos->num_rows == 0){
                     <button class='btn-editar' data-id="<?=$fila["id"]?>">Editar</button>
                     <?php
                     if($fila["estado"]==="activo"){
-                        ?><button class='btn-editar' data-idD="<?=$fila["id"]?>">Deshabilitar</button><?php
+                        ?><button class='btn-deshabilitar btn' data-idD="<?=$fila["id"]?>">Deshabilitar</button><?php
                     } else{
-                        ?><button class='btn-editar' data-idH="<?=$fila["id"]?>">Habilitar</button><?php
+                        ?><button class='btn-habilitar btn' data-idH="<?=$fila["id"]?>">Habilitar</button><?php
                     }
                     ?>
                 </td>

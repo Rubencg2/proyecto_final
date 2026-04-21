@@ -247,6 +247,8 @@ section.informacion{grid-area: informacion;}
     color: #ff4d4d;
 }
 
+
+
 /* Agregar producto */
 .formulario-nuevo-producto {
     width: 100%;
@@ -316,6 +318,12 @@ section.informacion{grid-area: informacion;}
     background-color: #f3f3f3;
 }
 
+td[data-label="Opciones"] {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
 .img-papelera{
     width: 20px;
     height: auto;
@@ -354,6 +362,20 @@ section.informacion{grid-area: informacion;}
   transition: background 0.15s;
 }
 .btn-editar:hover {
+  background: #378ADD;
+}
+
+.btn {
+  background: #1a2a4a;
+  color: #fff;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.btn:hover {
   background: #378ADD;
 }
 
@@ -841,8 +863,10 @@ section.informacion{grid-area: informacion;}
 
     /* Caso especial para la celda de Opciones/Botón */
     .tabla td[data-label="Opciones"] {
-        display: block !important;
-        text-align: center !important;
+        display: flex !important;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center !important;
     }
     
     .tabla td[data-label="Opciones"]::before {

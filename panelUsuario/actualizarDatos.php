@@ -30,12 +30,7 @@ if (isset($_POST['municipio'])) $_SESSION['temp_municipio'] = $_POST['municipio'
                 <?php
                     $email = $_SESSION["email"];
                     $id = $_SESSION["id_usuario"];
-                    $fechaActual = date("Y-m-d H:i:s");
-                    $codigo_introducido = trim($_POST['codigoV']);
 
-                    $consultaCodigo = "SELECT * FROM verificaciones WHERE email='$email' AND expiracion>'$fechaActual'";
-                    $datos = $conn->query($consultaCodigo);
-                    if($datos->num_rows!=0){
                         // Actualizacion de nombre
                         if(isset($_SESSION["temp_nombre"])){
                             $nombreA = $_SESSION["temp_nombre"];
@@ -104,9 +99,6 @@ if (isset($_POST['municipio'])) $_SESSION['temp_municipio'] = $_POST['municipio'
                         }
 
                         header("Location: ../paginaUsuario.php");
-                    } else {
-                        echo "Codigo incorrecto o expirado";
-                    }
                 
             ?>
             </div>
