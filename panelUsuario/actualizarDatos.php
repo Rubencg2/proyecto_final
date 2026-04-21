@@ -3,8 +3,8 @@ session_start();
 if (isset($_POST['nombre'])) $_SESSION['temp_nombre'] = $_POST['nombre'];
 if (isset($_POST['telefono'])) $_SESSION['temp_telefono'] = $_POST['telefono'];
 if (isset($_POST['direccion'])) $_SESSION['temp_direccion'] = $_POST['direccion'];
-if (isset($_POST['direccion'])) $_SESSION['temp_provincia'] = $_POST['provincia'];
-if (isset($_POST['direccion'])) $_SESSION['temp_municipio'] = $_POST['municipio'];
+if (isset($_POST['provincia'])) $_SESSION['temp_provincia'] = $_POST['provincia'];
+if (isset($_POST['municipio'])) $_SESSION['temp_municipio'] = $_POST['municipio'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +15,7 @@ if (isset($_POST['direccion'])) $_SESSION['temp_municipio'] = $_POST['municipio'
     <link rel="stylesheet" href="../CSS/bootstrap.min.css">
     <link rel="stylesheet" href="../CSS/estilos.css">
     <link rel="stylesheet" href="../CSS/formularioVerificacion.css">
-    <script src="./JS/bootstrap.bundle.min.js"></script>
+    <script src="../JS/bootstrap.bundle.min.js"></script>
 </head>
 <body>
     <?php

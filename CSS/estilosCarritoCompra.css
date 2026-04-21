@@ -464,10 +464,16 @@ a{
         gap: 20px;
         justify-content: flex-start;
         text-align: left !important;
+        grid-column: 1 / -1;
     }
 
 
     .panel-Responsivo{
         display: flex !important;
+    }
+
+    .login-Responsivo, 
+    .carrito-Responsivo { 
+        display: flex !important; 
     }
 }

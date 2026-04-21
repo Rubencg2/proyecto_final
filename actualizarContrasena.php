@@ -42,7 +42,7 @@ session_start();
                         }
 
                         ?>
-                <form action="actualizarcontrasena.php" method="post">
+                <form action="actualizarContrasena.php" method="post">
                     <div class="form_group">
                         <label class="sub_title" for="actual">Contraseña Actual</label>
                         <input class="form_style" type="password" name="actual" required>
@@ -57,10 +57,10 @@ session_start();
                     </div>
                     <div>
                         <button class="btn" name="actualizar">Actualizar contraseña</button>
-                    </a></div>
+                    </div>
                 
-            </a></form></div>
-        </a></div>
+            </form></div>
+        </div>
         <?php
         include("footer.html");
 
@@ -76,26 +76,26 @@ session_start();
                 $nuevacontrasena = $_POST["nuevaC"];
                 $nuevacontrasena2 = $_POST["nuevaC2"];
                 if(password_verify($nuevacontrasena,$contrasena)){
-                    header("Location: actualizarcontrasena.php?iguales=1");
+                    header("Location: actualizarContrasena.php?iguales=1");
                 } else {
                     if($nuevacontrasena===$nuevacontrasena2){
                         $nuevacontrasenaHash = password_hash($nuevacontrasena, PASSWORD_DEFAULT);
                         $actualizarcontrasena = "UPDATE usuarios SET contrasena='$nuevacontrasenaHash' WHERE email='$email'";
                         if($conn->query($actualizarcontrasena)){
-                                header("Location: actualizarcontrasena.php?correcto=1");
+                                header("Location: actualizarContrasena.php?correcto=1");
                                 exit();
                         } else {
-                            header("Location: actualizarcontrasena.php?error=1");
+                            header("Location: actualizarContrasena.php?error=1");
                             exit();
                         }
                     } else {
-                        header("Location: actualizarcontrasena.php?noCoincide=1");
+                        header("Location: actualizarContrasena.php?noCoincide=1");
                         exit();
                     }
                 }
                 
             } else {
-                header("Location: actualizarcontrasena.php?errorActual=1");
+                header("Location: actualizarContrasena.php?errorActual=1");
                 exit();
             }
         }

@@ -183,10 +183,10 @@ equipos.addEventListener("click",()=>{
                 language: {
                     url: 'https://cdn.datatables.net/plug-ins/2.0.8/i18n/es-ES.json'
                 },
-                columnDefs: [{ orderable: false, targets: [2] }],
                 order: [[1, 'asc']],
                 pageLength: 10,
                 columnDefs: [
+                    { orderable: false, targets: [2] },
                     { responsivePriority: 1, targets: 0 },
                     { responsivePriority: 2, targets: 2 },
                     { responsivePriority: 3, targets: 1 }  

@@ -732,11 +732,36 @@ footer{
         display: flex;
         flex-direction: column;
         width: 100%;
+        padding-left: 0;
+        padding-top: 10px;
+    }
+
+    .opcion{
+        mxn-width: none;
+        width: 100%;
     }
 
     .opciones{
         display: flex;
         flex-direction: row;
         width: 100%;
+    }
+
+    .contenedorProducto { 
+        width: 100%;
+    }
+
+    .ultimosFavoritos {
+        min-width: unset; 
+        width: 100%; 
+    }
+
+    .detallesCuenta { 
+        flex-direction: column; 
+        gap: 20px; 
+    }
+
+    .paneles { 
+        flex-direction: column; 
     }
 }

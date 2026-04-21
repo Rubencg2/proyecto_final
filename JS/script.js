@@ -1,3 +1,5 @@
+const paginaActual = window.location.pathname;
+
 
 //Funcion para añadir favoritos
 function gestionarFavorito(idProducto) {
@@ -53,7 +55,7 @@ window.addEventListener('scroll', function() {
 });
 
 //DETECTAR PAGINA PERFIL USUARIO
-const paginaActual = window.location.pathname;
+
 
 if (paginaActual.includes("paginaUsuario.php")) {
     ids.forEach(id => {
@@ -66,56 +68,8 @@ if (paginaActual.includes("paginaUsuario.php")) {
 
 // Evento para cambiar los productos segun los filtros sin recargar la pagina
 document.addEventListener('DOMContentLoaded', () => {
-    //Seleccionamos todos los radios de ambos
-    const inputsFiltro = document.querySelectorAll('.filtro');
     const contenedor = document.getElementById('contenedorProductos');
 
-
-    inputsFiltro.forEach(input => {
-        input.addEventListener('change', () => {
-            contenedor.innerHTML = `
-                <div class="d-flex justify-content-center my-5">
-                    <div class="spinner-border text-info" role="status">
-                        <span class="visually-hidden">Cargando...</span>
-                    </div>
-                </div>
-            `;
-
-            //Creamos un contenedor de datos
-            const datosParaEnviar = new FormData();
-
-            //Buscamos el valor marcado en el grupo de 'Ligas'
-            const ligaActiva = document.querySelector('input[name="filtro_liga"]:checked');
-            if (ligaActiva) {
-                datosParaEnviar.append('filtro_liga', ligaActiva.value);
-            }
-
-            // Buscamos el valor marcado en el grupo de 'Equipos'
-            const equipoActivo = document.querySelector('input[name="filtro_equipo"]:checked');
-            if (equipoActivo) {
-                datosParaEnviar.append('filtro_equipo', equipoActivo.value);
-            }
-
-            const selectTalla = document.getElementById('tallasR');
-            if (selectTalla) {
-                datosParaEnviarR.append('filtro_tallas', selectTalla.value);
-            }
-
-            datosParaEnviar.append('id_categoria', document.getElementById('id_categoria')?.value || '');
-
-
-            //Enviamos ambos datos al servidor
-            fetch('obtenerProductos.php', {
-                method: 'POST',
-                body: datosParaEnviar
-            })
-            .then(res => res.text())
-            .then(html => {
-                contenedor.innerHTML = html;
-            })
-            .catch(err => console.error("Error al filtrar:", err));
-        });   
-    });
 
     const selectLiga = document.getElementById('ligasR');
     const selectEquipo = document.getElementById('equiposR');
@@ -267,7 +221,7 @@ function actualizarFiltrosYPrecio() {
     const max = rango.max || 100;
     const porcentaje = Number(((val - min) * 100) / (max - min));
     
-    burbuja.innerHTML = `$${val}`;
+    burbuja.innerHTML = `${val}€`;
     burbuja.style.left = `calc(${porcentaje}% + (${8 - porcentaje * 0.15}px))`;
 
     // 2. Mostrar Spinner de carga
