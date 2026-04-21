@@ -57,3 +57,28 @@ menuOpciones.addEventListener("click",(e)=>{
 
     
 })
+
+// MENU HAMBURGUESA
+const menu = document.querySelector('.hamburguesa');
+
+
+if (menu) {
+    const hamburguesa = document.querySelector('.img-hamburguesa');
+    const cerrar = document.querySelector('.img-cerrar');
+    const nav = document.querySelector('nav');
+    const body = document.body;
+
+    menu.addEventListener("click",()=>{
+
+        nav.classList.toggle('abierto');
+        body.classList.toggle('bloquear-scroll');
+
+        if (nav.classList.contains('abierto')) {
+            hamburguesa.style.display = "none";
+            cerrar.style.display = "block";
+        } else {
+            hamburguesa.style.display = "block";
+            cerrar.style.display = "none";
+        }  
+    });
+}

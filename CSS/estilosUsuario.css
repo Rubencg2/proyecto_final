@@ -159,26 +159,18 @@ footer{
     color: white;
 }
 
-
-/* MENU HAMBURGUESA */
-.hamburguesa{
-    position: relative;
-    display: none;
-    margin: 0;
+/* FLECHA VOLVER IZQUIERDA */
+.contenedor-flecha-izquierda{
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    cursor: pointer;
 }
 
-.img-hamburguesa{
-    position: absolute;
-    display: flex;
-    width:50px; 
-    height:50px;
-}
-
-.img-cerrar{
-    position: absolute;
-    display: none;
-    width:30px; 
-    height:30px;
+.flecha-izquierda{
+    width: 100%;
 }
 
 
@@ -225,6 +217,8 @@ footer{
     object-fit: cover;
     border: 4px solid white;
 }
+
+
 
 /* Overlay para subir foto */
 .update-overlay {
@@ -546,6 +540,7 @@ footer{
     padding-right: 50px;
     margin-bottom: 30px;
 }
+
 .datosimg{
     display: flex;
     flex-direction: column;
@@ -712,38 +707,49 @@ footer{
     }
 
 
+    .profile-pic{
+        width: 100px;
+        height: 100px;
+    }
+
+    .profile-container-circular {
+        margin-bottom: -35px;
+    }
+
+    .update-overlay{
+        width: 100px;
+        height: 100px;
+        text-align: center;
+    }
+
+    .user-name {
+        font-size: 20px;
+    }
 
     .panel-Responsivo{
         display: flex !important;
     }
-    .hamburguesa {
-        display: flex;
-        z-index: 1100; 
-        cursor: pointer;
-    }
-    
-    .img-hamburguesa, .img-cerrar {
-        position: static;
-        width: 40px;
-        height: 40px;
-    }
+
 
     .informacion{
         display: flex;
         flex-direction: column;
         width: 100%;
         padding-left: 0;
+        padding-right: 0;
         padding-top: 10px;
+        align-items: center;
     }
 
     .opcion{
-        mxn-width: none;
-        width: 100%;
+        align-items: center;
+        text-align: center;
     }
 
     .opciones{
         display: flex;
         flex-direction: row;
+        max-width: none;
         width: 100%;
     }
 
@@ -761,7 +767,73 @@ footer{
         gap: 20px; 
     }
 
+    .contenido{
+        width: 100%;
+        align-items: center;
+        padding: 0 15px;
+    }
+
     .paneles { 
-        flex-direction: column; 
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .generalDatos{
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .pedido{
+        width: 100%;
+        padding: 0;
+    }
+
+    .ultimoPedido{
+        width: 95%;
+        padding: 10px;
+    }
+
+    .contenedorProducto{
+        width: 95%;
+        flex-direction: column;
+    }
+
+    .precio{
+        flex-direction: row;
+        gap: 50px;
+        margin-top: 40px;
+    }
+
+    .datosimg,
+    .datosTotal{
+        width: 100%;
+    }
+
+    .datosPersonales{
+        flex-direction: column;
+    }
+
+    .datosPersonales input{
+        width: 100%;
+    }
+
+    .datosPersonales p{
+        padding: 0;
+        margin: 0;
+    }
+
+    .detallesCuenta{
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .fechaRegistro,
+    .estadoCuenta{
+        width: 100%;
+    }
+
+    .actualizar{
+        width: 100%;
+        justify-content: center;
     }
 }

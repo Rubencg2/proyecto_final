@@ -38,6 +38,10 @@ session_start();
                     }
                 ?>
                 <div class="barra-azul">
+                    <div class="contenedor-flecha-izquierda">
+                        <a href="./index.php"><img src="./imagenes/flecha-izquierda.png" alt="menu" class="flecha-izquierda"></a>
+                    </div>
+
                     <div class="area-foto">
                         <form action="./panelUsuario/subirImagenPerfil.php" method="POST" enctype="multipart/form-data" id="form-foto">
                             <div class="profile-container-circular">
@@ -56,7 +60,6 @@ session_start();
                         <h1 class="user-name"><?=$fila["nombre"]?></h1>
                     </div>
                 </div>
-
             </div>
 
 
@@ -157,7 +160,7 @@ session_start();
                                                 <img src="<?=$res["url_imagen"]?>" alt="<?=$res["nombre"]?>">
                                                 <div class="detalles">
                                                     <p><?=$res["nombre"]?></p>
-                                                    <p><?=$res["talla"]?></p>
+                                                    <p>Talla: <?=$res["talla"]?></p>
                                                 </div>
                                             </div>
                                             

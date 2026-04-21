@@ -46,12 +46,12 @@
 
 <!-- MENU DE NAVEGACION-->
 <nav class="nav">
-    <a href="./index.php">
-        <div class="logo">
-            <img src="./imagenes/logo-movil.png" class="img-logo-escritorio ocultar" id="logo-Movil">
-        </div>
-    </a>
     <ul>
+        <li class="logo-index">
+            <a href="./index.php">
+                <img src="./imagenes/logo-movil.png" class="img-logo-escritorio ocultar" id="logo-Movil">
+            </a>
+        </li>
         <li><a href="./index.php">Inicio</a></li>
         <li><a href="./camisetas.php">Camisetas</a></li>
         <li><a href="./chandals.php">Chandals</a></li>
@@ -66,13 +66,13 @@
 
         <?php
         if(!isset($_SESSION["email"])){
-            ?><a href="./login.php"><img src="./imagenes/sesionB.png" class="img-cab ocultar" id="img-login"></a><?php
+            ?><li><a href="./login.php"><img src="./imagenes/sesionB.png" class="img-cab ocultar" id="img-login"></a></li><?php
         } else {
-            ?><a href="./paginaUsuario.php"><img src="./imagenes/sesionB.png" class="img-cab ocultar" id="img-pagUsu"></a><?php
+            ?><li><a href="./paginaUsuario.php"><img src="./imagenes/sesionB.png" class="img-cab ocultar" id="img-pagUsu"></a></li><?php
         }
         ?>
         
-        <a href="./verCarrito.php"><img src="./imagenes/carrito.png" class="img-cab ocultar" id="img-carrito"></a>
+        <li><a href="./verCarrito.php"><img src="./imagenes/carrito.png" class="img-cab ocultar" id="img-carrito"></a></li>
 
         <?php
         if(!isset($_SESSION["email"])){
