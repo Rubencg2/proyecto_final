@@ -34,6 +34,7 @@ function gestionarFavorito(idProducto) {
 // Definimos los IDs que queremos controlar
 const ids = ["logo-Movil", "img-login", "img-pagUsu", "img-carrito"];
 
+
 // DETECTAR CUANDO EL USUARIO HACE SCROLL
 window.addEventListener('scroll', function() {
 
@@ -54,9 +55,8 @@ window.addEventListener('scroll', function() {
     
 });
 
+
 //DETECTAR PAGINA PERFIL USUARIO
-
-
 if (paginaActual.includes("paginaUsuario.php")) {
     ids.forEach(id => {
         const el = document.getElementById(id);
@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-//FILTRO PARA EL PRECIO
+//FILTROS
 const rango = document.getElementById('rango');
 const burbuja = document.getElementById('burbuja');
 const contenedor = document.getElementById('contenedorProductos');
@@ -278,6 +278,22 @@ if(document.getElementById('id_categoria')) {
 }
 
 
+function cargarPagina(numeroPagina) {
+    
+    contenedor.style.opacity = '0.5';
+    fetch('obtenerProductos.php?p=' + numeroPagina)
+        .then(response => response.text())
+        .then(html => {
+            contenedor.innerHTML = html;
+            contenedor.style.opacity = '1';
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        })
+        .catch(error => {
+            console.error('Error al cargar productos:', error);
+            contenedor.style.opacity = '1';
+        });
+}
 
 
 

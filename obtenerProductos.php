@@ -55,7 +55,22 @@ if(isset($_POST["filtroR-tallas"]) && $_POST["filtroR-tallas"] != "todos"){
     )";
 }
 
-$consultaProductos = "SELECT * FROM productos" . $where;
+// Configuración
+$por_pagina = 5;
+$pagina_actual = isset($_GET['p']) ? (int)$_GET['p'] : 1;
+if ($pagina_actual < 1) $pagina_actual = 1;
+
+$inicio = ($pagina_actual - 1) * $por_pagina;
+
+
+$consultaProductos = "SELECT * FROM productos" . $where . " LIMIT $inicio, $por_pagina";
+
+// Contar cuántos hay en total para saber cuándo detenerse
+$consultaConteo = "SELECT COUNT(*) as total FROM productos" . $where;
+$conteo = $conn->query($consultaConteo);
+$total_filas = $conteo->fetch_assoc()['total'];
+$total_paginas = ceil($total_filas / $por_pagina);
+
 $productos = $conn->query($consultaProductos);
 if($productos->num_rows==0){
     ?><h2>No hay productos disponibles</h2><?php
@@ -79,5 +94,19 @@ if($productos->num_rows==0){
     </div>
     <?php
     }
+    ?>
+    <div class="w-100"></div>
+    <div class="controles w-100 text-center mt-4">
+        <?php if($pagina_actual > 1): ?>
+            <a href="javascript:void(0)" onclick="cargarPagina(<?php echo $pagina_actual - 1; ?>)" class="btn btn-outline-primary">&laquo; Anterior</a>
+        <?php endif; ?>
+
+        <span class="mx-3">Página <?php echo $pagina_actual; ?> de <?php echo $total_paginas; ?></span>
+
+        <?php if($pagina_actual < $total_paginas): ?>
+            <a href="javascript:void(0)" onclick="cargarPagina(<?php echo $pagina_actual + 1; ?>)" class="btn btn-outline-primary">Siguiente &raquo;</a>
+        <?php endif; ?>
+    </div>
+    <?php
 }
                 
