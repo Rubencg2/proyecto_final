@@ -1,0 +1,245 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+
+a{
+    text-decoration: none;
+    border-bottom: 1px solid blue;
+}
+
+.procesarPedido{
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    width: 100%;
+    overflow: hidden;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding-left: 50px;
+}
+
+.div1{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    justify-content: space-between;
+}
+
+.div2{
+    display: flex;
+    flex-direction: row;
+}
+
+.div3{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    border-top: 1px solid rgb(172, 172, 172);
+    padding-top: 20px;
+    justify-content: space-between;
+}
+
+.info{
+    display: flex;
+    flex-direction: row;
+    width: 30%;
+    gap: 10%;
+    align-items: center;
+    font-weight: bold;
+}
+
+.info img{
+    width: 60px;
+    height: 60px;
+}
+
+.direccion{
+    width: 50%;
+}
+
+.tarjetaCredito{
+    width: 50%;
+}
+
+.tarjetaCredito h2{
+    margin-bottom: 10px;
+}
+
+.payment-method {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 20px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: white;
+  width: 100%;
+  max-width: 400px;
+}
+
+.payment-method.selected {
+  border-color: #000;
+}
+
+.card-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-weight: bold;
+}
+
+.tick-container {
+  background-color: #002366;
+  color: white;
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.card-logo {
+  width: 40px;
+  height: auto;
+}
+
+.resumenPedido{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    background-color: rgb(216, 216, 216);
+    border-radius: 20px;
+}
+
+.texto{
+    background-color: rgb(144, 144, 144);
+    padding: 20px;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+}
+
+.pedido{
+    padding: 20px;
+}
+
+.producto{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.detalles{
+    display: flex;
+    flex-direction: column;
+}
+
+.talla{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.imagen{
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+}
+
+.imagen img{
+    width: 100%;
+    border-radius: 10px;
+}
+
+.precio{
+    border-top: 1px solid rgb(172, 172, 172);
+    margin-top: 20px;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.subtotal{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.envio{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.total{
+    border-top: 1px solid rgb(172, 172, 172);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.boton{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.btn {
+    width: 100%;
+    background: #002366;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn:hover {
+    background: #e6f0ff;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+
+
+
+/* FOOTER */
+footer{
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid black;
+    padding-top: 15px;
+    background-color: #0056b3;
+    color: white;
+    height: 65px;
+}
+
+
+@media screen and (max-width: 768px) {
+    .procesarPedido{
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+        align-items: center;
+    }
+
+    .direccion{
+        width: 90%;
+    }
+
+    .tarjetaCredito{
+        width: 90%;
+    }
+
+    .resumenPedido{
+        width: 90%;
+    }
+}
