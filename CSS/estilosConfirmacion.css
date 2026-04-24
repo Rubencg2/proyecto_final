@@ -1,0 +1,338 @@
+/* ═══════════════════════════════════════════════
+   ESTILOS CONFIRMACIÓN DE PEDIDO
+   Paleta coherente con el proyecto (#002366)
+═══════════════════════════════════════════════ */
+
+*, *::before, *::after {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f0f4f8;
+    font-family: 'Segoe UI', sans-serif;
+    color: #1a1a2e;
+}
+
+/* ── Wrapper centrado ── */
+.confirmacion-wrapper {
+    min-height: calc(100vh - 130px);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 50px 20px;
+}
+
+/* ── Tarjeta principal ── */
+.confirmacion-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 48px 40px;
+    max-width: 640px;
+    width: 100%;
+    box-shadow: 0 8px 40px rgba(0, 35, 102, 0.10);
+    text-align: center;
+    animation: slideUp 0.5s ease both;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Icono check animado ── */
+.icono-exito {
+    margin: 0 auto 24px;
+    width: 80px;
+    height: 80px;
+}
+
+.checkmark {
+    width: 80px;
+    height: 80px;
+    stroke: #002366;
+    stroke-width: 2;
+}
+
+.checkmark__circle {
+    stroke-dasharray: 166;
+    stroke-dashoffset: 166;
+    stroke-width: 2;
+    fill: none;
+    stroke: #002366;
+    animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.checkmark__check {
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+    stroke: #002366;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    animation: stroke 0.4s cubic-bezier(0.65, 0, 0.45, 1) 0.6s forwards;
+}
+
+@keyframes stroke {
+    100% { stroke-dashoffset: 0; }
+}
+
+/* ── Icono error ── */
+.icono-error {
+    width: 80px;
+    height: 80px;
+    background: #c0392b;
+    color: white;
+    font-size: 2.5rem;
+    font-weight: bold;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+}
+
+.error-card .titulo { color: #c0392b; }
+
+/* ── Textos principales ── */
+.titulo {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #002366;
+    margin-bottom: 10px;
+}
+
+.subtitulo {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 28px;
+}
+
+/* ── Número de pedido ── */
+.numero-pedido {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: #e8eef8;
+    border: 2px dashed #002366;
+    border-radius: 12px;
+    padding: 12px 28px;
+    margin-bottom: 32px;
+}
+
+.numero-pedido .etiqueta {
+    font-size: 0.85rem;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.numero-pedido .valor {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #002366;
+}
+
+/* ── Resumen de artículos ── */
+.resumen-articulos {
+    text-align: left;
+    background: #f7f9fc;
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.resumen-articulos h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #002366;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #dde4f0;
+}
+
+.lista-articulos {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.articulo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.articulo-img {
+    width: 64px;
+    height: 64px;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: #eee;
+}
+
+.articulo-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.articulo-info {
+    flex: 1;
+}
+
+.articulo-nombre {
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+}
+
+.articulo-talla {
+    font-size: 0.85rem;
+    color: #777;
+}
+
+.articulo-precio {
+    font-weight: 800;
+    font-size: 1rem;
+    color: #002366;
+    white-space: nowrap;
+}
+
+/* ── Totales ── */
+.totales {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 16px;
+    border-top: 1px solid #dde4f0;
+}
+
+.fila-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95rem;
+    color: #444;
+}
+
+.fila-gran-total {
+    padding-top: 10px;
+    border-top: 2px solid #002366;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #002366;
+    margin-top: 4px;
+}
+
+/* ── Info entrega ── */
+.info-entrega {
+    background: #e8eef8;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 28px;
+    text-align: left;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.info-item img {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+}
+
+.info-item p {
+    font-size: 0.9rem;
+    color: #333;
+    line-height: 1.5;
+}
+
+/* ── Botones ── */
+.acciones {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-primario,
+.btn-secundario {
+    display: inline-block;
+    padding: 14px 32px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    transition: all 0.25s ease;
+    cursor: pointer;
+}
+
+.btn-primario {
+    background: #002366;
+    color: #fff;
+}
+
+.btn-primario:hover {
+    background: #003a9e;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,35,102,0.25);
+    color: #fff;
+}
+
+.btn-secundario {
+    background: transparent;
+    color: #002366;
+    border: 2px solid #002366;
+}
+
+.btn-secundario:hover {
+    background: #e8eef8;
+    transform: translateY(-2px);
+    color: #002366;
+}
+
+/* ── Footer ── */
+footer {
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid black;
+    padding-top: 15px;
+    background-color: #0056b3;
+    color: white;
+    height: 65px;
+}
+
+/* ── Responsive ── */
+@media screen and (max-width: 640px) {
+    .confirmacion-card {
+        padding: 32px 20px;
+    }
+
+    .titulo {
+        font-size: 1.6rem;
+    }
+
+    .acciones {
+        flex-direction: column;
+    }
+
+    .btn-primario,
+    .btn-secundario {
+        width: 100%;
+        text-align: center;
+    }
+}

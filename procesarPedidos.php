@@ -118,7 +118,7 @@ session_start();
                         <div class="envio">
                             <p>Envio: </p>
                             <?php
-                            if($subtotal<100){
+                            if($total<100){
                                 ?><p>5.99€</p><?php
                             } else {
                                 ?><p>¡GRATIS!</p><?php
