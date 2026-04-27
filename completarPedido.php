@@ -51,35 +51,25 @@ $id_pedido = null;
 
 if ($esInvitado) {
     // id_usuario = NULL para invitados (la columna admite NULL en la BD)
-    $stmt = $conn->prepare(
-        "INSERT INTO pedidos (id_usuario, fecha, total, estado) VALUES (NULL, ?, ?, ?)"
-    );
-    $stmt->bind_param("sds", $fecha, $total, $estado);
+    $stmt ="INSERT INTO pedidos (id_usuario, fecha, total, estado) VALUES (NULL, '$fecha', '$total', '$estado')";
+    $conn->query($stmt);
 } else {
-    $stmt = $conn->prepare(
-        "INSERT INTO pedidos (id_usuario, fecha, total, estado) VALUES (?, ?, ?, ?)"
-    );
-    $stmt->bind_param("isds", $id_usuario, $fecha, $total, $estado);
+    $stmt ="INSERT INTO pedidos (id_usuario, fecha, total, estado) VALUES ('$id_usuario', '$fecha', '$total', '$estado')";
+    $conn->query($stmt);
 }
 
 if ($stmt->execute()) {
     $id_pedido = $conn->insert_id;
     $pedidoOk  = true;
 
-    // ── Insertar líneas de detalle ────────────────────────────────────────────
-    $stmtLinea = $conn->prepare(
-        "INSERT INTO detalle_pedidos (id_pedido, id_producto, cantidad, talla, precio_unitario)
-         VALUES (?, ?, ?, ?, ?)"
-    );
+    
 
     foreach ($carrito as $item) {
-        $id_producto     = (int) $item['id'];
-        $cantidad        = (int) $item['cantidad'];
-        $talla           = substr((string) $item['talla'], 0, 4);
-        $precio_unitario = (int) round($item['precio']);
+        $id_producto     = $item['id'];
+        $cantidad        = $item['cantidad'];
+        $talla           = $item['talla'];
+        $precio_unitario = round($item['precio']);
 
-        $stmtLinea->bind_param("iiisi", $id_pedido, $id_producto, $cantidad, $talla, $precio_unitario);
-        $stmtLinea->execute();
 
         // ── Actualizar stock ──────────────────────────────────────────────────
         $conn->query(
@@ -91,7 +81,12 @@ if ($stmt->execute()) {
                AND pt.stock >= $cantidad"
         );
     }
-    $stmtLinea->close();
+
+    // ── Insertar líneas de detalle ────────────────────────────────────────────
+    $consultaLinea ="INSERT INTO detalle_pedidos (id_pedido, id_producto, cantidad, talla, precio_unitario)
+         VALUES ('$id_pedido', '$id_producto', '$cantidad', '$talla', '$precio_unitario')";
+
+    $conn->query($consultaLinea);
 
     // ── Vaciar el carrito correcto ────────────────────────────────────────────
     if ($esInvitado) {
@@ -101,7 +96,6 @@ if ($stmt->execute()) {
     }
 }
 
-$stmt->close();
 $conn->close();
 ?>
 <!DOCTYPE html>
@@ -150,11 +144,11 @@ $conn->close();
                 <div class="info-item">
                     <img src="./imagenes/ubicacion.png" alt="dirección">
                     <div>
-                        <p><b><?= htmlspecialchars($nombre) ?></b></p>
-                        <p><?= htmlspecialchars($direccion) ?></p>
-                        <p><?= htmlspecialchars($municipio) ?>, <?= htmlspecialchars($provincia) ?></p>
+                        <p><b><?= $nombre ?></b></p>
+                        <p><?= $direccion ?></p>
+                        <p><?= $municipio ?>, <?= $provincia?></p>
                         <?php if (!empty($telefono)): ?>
-                            <p><?= htmlspecialchars($telefono) ?></p>
+                            <p><?= $telefono ?></p>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -170,13 +164,13 @@ $conn->close();
                     ?>
                     <div class="articulo">
                         <div class="articulo-img">
-                            <img src="<?= htmlspecialchars($item['imagen']) ?>"
-                                 alt="<?= htmlspecialchars($item['nombre']) ?>">
+                            <img src="<?= $item['imagen'] ?>"
+                                 alt="<?= $item['nombre'] ?>">
                         </div>
                         <div class="articulo-info">
-                            <p class="articulo-nombre"><?= htmlspecialchars($item['nombre']) ?></p>
-                            <p class="articulo-talla">Talla: <b><?= htmlspecialchars($item['talla']) ?></b></p>
-                            <p class="articulo-cantidad">Cantidad: <?= (int) $item['cantidad'] ?></p>
+                            <p class="articulo-nombre"><?=$item['nombre']?></p>
+                            <p class="articulo-talla">Talla: <b><?=$item['talla'] ?></b></p>
+                            <p class="articulo-cantidad">Cantidad: <?= $item['cantidad'] ?></p>
                         </div>
                         <div class="articulo-precio">
                             <?= number_format($subtotalItem, 2, ',', '.') ?>€
@@ -198,14 +192,6 @@ $conn->close();
                         <span>Total pagado</span>
                         <span><?= number_format($total, 2, ',', '.') ?>€</span>
                     </div>
-                </div>
-            </div>
-
-            <!-- Notificación por email -->
-            <div class="info-entrega">
-                <div class="info-item">
-                    <img src="./imagenes/camion.png" alt="envío">
-                    <p>Se enviará confirmación a <b><?= htmlspecialchars($email) ?></b></p>
                 </div>
             </div>
 

@@ -31,6 +31,69 @@ function gestionarFavorito(idProducto) {
 }; 
 
 
+// Codigo para actualizar cantidad en carrito
+document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.classList.contains('btn-qty')) {
+            e.preventDefault();
+
+            const boton = e.target;
+            const id = boton.getAttribute('data-id');
+            const accion = boton.getAttribute('data-accion');
+
+            fetch(`actualizarCantidad.php?id=${id}&accion=${accion}`)
+                .then(response => {
+                    if (!response.ok) throw new Error('Error en la red');
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.status === 'success') {
+                        const pError = document.getElementById("error");
+                        const btnProcesar = document.getElementById("btn-procesar");
+
+                        if (data.hayStock === 0) {
+                            pError.innerHTML = 'No hay stock disponible';
+                            if (btnProcesar) {
+                                btnProcesar.disabled = true;
+                                btnProcesar.style.opacity = "0.5"; 
+                                btnProcesar.style.cursor = "not-allowed";
+                            }
+                        } else {
+                            pError.innerHTML = '';
+                            if (btnProcesar) {
+                                btnProcesar.disabled = false;
+                                btnProcesar.style.opacity = "1";
+                                btnProcesar.style.cursor = "pointer";
+                            }
+                        }
+
+                        // Actualizamos el input de cantidad
+                        const inputCant = document.getElementById(`cant-${id}`);
+                        if (inputCant) inputCant.value = data.nuevaCantidad;
+
+                        // Actualizamos los totales del resumen
+                        const resumenTotal = document.getElementById('resumen-total');
+                        const resumenFinal = document.getElementById('resumen-final');
+                        const envioDiv = document.getElementById('envio');
+
+                        if (resumenTotal) resumenTotal.innerHTML = data.totalCesta;
+                        if(data.totalCesta<100){
+                            if (envioDiv) envioDiv.style.display = '';
+                            if (resumenFinal) resumenFinal.innerHTML = data.totalConEnvio;
+                        } else {
+                            if (envioDiv) envioDiv.style.display = 'none';
+                            if (resumenFinal) resumenFinal.innerHTML = data.totalSinEnvio;
+                        }
+                        
+                
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    });
+});
+
+
 // Definimos los IDs que queremos controlar
 const ids = ["logo-Movil", "img-login", "img-pagUsu", "img-carrito"];
 
@@ -120,67 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-// Codigo para actualizar cantidad en carrito
-document.addEventListener('DOMContentLoaded', () => {
-    document.addEventListener('click', function(e) {
-        if (e.target && e.target.classList.contains('btn-qty')) {
-            e.preventDefault();
 
-            const boton = e.target;
-            const id = boton.getAttribute('data-id');
-            const accion = boton.getAttribute('data-accion');
-
-            fetch(`actualizarCantidad.php?id=${id}&accion=${accion}`)
-                .then(response => {
-                    if (!response.ok) throw new Error('Error en la red');
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.status === 'success') {
-                        const pError = document.getElementById("error");
-                        const btnProcesar = document.getElementById("btn-procesar");
-
-                        if (data.hayStock === 0) {
-                            pError.innerHTML = 'No hay stock disponible';
-                            if (btnProcesar) {
-                                btnProcesar.disabled = true;
-                                btnProcesar.style.opacity = "0.5"; 
-                                btnProcesar.style.cursor = "not-allowed";
-                            }
-                        } else {
-                            pError.innerHTML = '';
-                            if (btnProcesar) {
-                                btnProcesar.disabled = false;
-                                btnProcesar.style.opacity = "1";
-                                btnProcesar.style.cursor = "pointer";
-                            }
-                        }
-
-                        // Actualizamos el input de cantidad
-                        const inputCant = document.getElementById(`cant-${id}`);
-                        if (inputCant) inputCant.value = data.nuevaCantidad;
-
-                        // Actualizamos los totales del resumen
-                        const resumenTotal = document.getElementById('resumen-total');
-                        const resumenFinal = document.getElementById('resumen-final');
-                        const envioDiv = document.getElementById('envio');
-
-                        if (resumenTotal) resumenTotal.innerHTML = data.totalCesta;
-                        if(data.totalCesta<100){
-                            if (envioDiv) envioDiv.style.display = '';
-                            if (resumenFinal) resumenFinal.innerHTML = data.totalConEnvio;
-                        } else {
-                            if (envioDiv) envioDiv.style.display = 'none';
-                            if (resumenFinal) resumenFinal.innerHTML = data.totalSinEnvio;
-                        }
-                        
-                
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-        }
-    });
-});
 
 
 
