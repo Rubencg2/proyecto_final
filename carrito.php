@@ -32,7 +32,7 @@ if (isset($_POST['id_producto']) && isset($_POST['talla_seleccionada'])) {
                 $conn->query($consultaActualizar);
             } else {
                 // Si es nuevo, lo añadimos
-                $consultaInsertar = "INSERT INTO carrito (id_usuario, id_producto, cantidad) VALUES ('$id_usuario', '$id', '$cantidad')";
+                $consultaInsertar = "INSERT INTO carrito (id_usuario, id_producto,talla, cantidad) VALUES ('$id_usuario', '$id','$talla', '$cantidad')";
                 $conn->query($consultaInsertar);
             }
 

@@ -149,6 +149,8 @@ header{
     display: flex !important;
 }
 
+
+
 /* FOOTER */
 footer{
     display: flex;
@@ -167,6 +169,7 @@ footer{
     top: 5px;
     left: 10px;
     cursor: pointer;
+    display: none;
 }
 
 .flecha-izquierda{
@@ -835,5 +838,9 @@ footer{
     .actualizar{
         width: 100%;
         justify-content: center;
+    }
+
+    .contenedor-flecha-izquierda{
+        display: flex;
     }
 }

@@ -135,7 +135,7 @@ session_start();
                         <div class="boton">
                             <form action="./completarPedido.php" method="post">
                                 <button class="btn">Pagar ahora y completar pedido</button>
-                            </form>
+                            </form>    
                         </div>     
                     </div>     
                 </div>

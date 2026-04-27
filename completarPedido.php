@@ -19,33 +19,39 @@ foreach ($carrito as $item) {
 $envio = ($subtotal >= 100) ? 0 : 5.99;
 $total = $subtotal + $envio;
 
-
 $fecha  = date("Y-m-d");
 $estado = "pendiente";
 
-$consultaPedido ="INSERT INTO pedidos (id_usuario, fecha, total, estado)
-                    VALUES ($id_usuario, $fecha, $total, $estado)";
 
+$consultaPedido = "INSERT INTO pedidos (id_usuario, fecha, total, estado)
+                   VALUES ($id_usuario, '$fecha', $total, '$estado')";
 
 $pedidoOk  = false;
 $id_pedido = null;
 
-if ($pedidos = $conn->query($consultaPedido)) {
+if ($conn->query($consultaPedido)) {
     $id_pedido = $conn->insert_id;
     $pedidoOk  = true;
-
-    
 
     foreach ($carrito as $item) {
         $id_producto     = $item['id'];
         $cantidad        = $item['cantidad'];
-        $talla           = substr((string)$item['talla'], 0, 4);
+        $talla           = $item['talla'];
         $precio_unitario = round($item['precio']);
 
-        $consultaLinea ="INSERT INTO detalle_pedidos (id_pedido, id_producto, cantidad, talla, precio_unitario)
-                    VALUES ($id_pedido, $id_producto, $cantidad, $talla, $precio_unitario)";
+        // ── Insertar línea de detalle ─────────────────────────────────────────
+        $consultaLinea = "INSERT INTO detalle_pedidos (id_pedido, id_producto, cantidad, talla, precio_unitario)
+                          VALUES ($id_pedido, $id_producto, $cantidad, '$talla', $precio_unitario)";
+        $conn->query($consultaLinea);
 
-        $Linea = conn-query($consultaLinea);
+        // ── Actualizar stock ──────────────────────────────────────────────────
+        $consultaStock = "UPDATE producto_tallas pt
+                          JOIN tallas t ON pt.id_talla = t.id
+                          SET pt.stock = pt.stock - $cantidad
+                          WHERE pt.id_producto = $id_producto
+                            AND t.talla = '$talla'
+                            AND pt.stock >= $cantidad";
+        $conn->query($consultaStock);
     }
 
     // ── Vaciar carrito de sesión ──────────────────────────────────────────────
@@ -75,7 +81,6 @@ $conn->close();
         <!-- ── ÉXITO ──────────────────────────────────────────────────────── -->
         <div class="confirmacion-card">
 
-            <!-- Check animado SVG -->
             <div class="icono-exito">
                 <svg viewBox="0 0 52 52" class="checkmark">
                     <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
@@ -109,9 +114,9 @@ $conn->close();
                                  alt="<?= $item['nombre'] ?>">
                         </div>
                         <div class="articulo-info">
-                            <p class="articulo-nombre"><?=$item['nombre'] ?></p>
-                            <p class="articulo-talla">Talla: <b><?=$item['talla'] ?></b></p>
-                            <p class="articulo-cantidad">Cantidad: <?=$item['cantidad'] ?></p>
+                            <p class="articulo-nombre"><?= $item['nombre'] ?></p>
+                            <p class="articulo-talla">Talla: <b><?= $item['talla'] ?></b></p>
+                            <p class="articulo-cantidad">Cantidad: <?= $item['cantidad'] ?></p>
                         </div>
                         <div class="articulo-precio">
                             <?= number_format($subtotalItem, 2, ',', '.') ?>€
@@ -144,7 +149,7 @@ $conn->close();
             </div>
         </div>
 
-        <?php} else { ?>
+        <?php } else { ?>
 
         <!-- ── ERROR ──────────────────────────────────────────────────────── -->
         <div class="confirmacion-card error-card">
@@ -159,7 +164,7 @@ $conn->close();
             </div>
         </div>
 
-        <?php}; ?>
+        <?php }; ?>
 
     </main>
 
