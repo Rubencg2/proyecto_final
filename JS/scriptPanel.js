@@ -262,7 +262,7 @@ document.addEventListener("click", (e) => {
         fetch(`./admin/deshabilitarProducto.php?id=${idProducto}`)
         .then(
             setTimeout(() => {
-                location.reload();
+                productos.click();
             }, 1000)
         )
         .catch(err => console.error("Error al deshabilitar el producto:", err));
@@ -274,7 +274,7 @@ document.addEventListener("click", (e) => {
         fetch(`./admin/habilitarProducto.php?id=${idProducto}`)
         .then(
             setTimeout(() => {
-                location.reload();
+                productos.click();
             }, 1000)
         )
         .catch(err => console.error("Error al habilitar el producto:", err));
@@ -312,7 +312,7 @@ document.addEventListener("submit", (e) => {
             body: formData
         })
         .then(response => response.text())
-        .then(() => { location.reload(); })
+        .then(() => { productos.click(); })
         .catch(err => console.error("Error al actualizar:", err));
     }
 });
@@ -422,14 +422,23 @@ insertarDatos.addEventListener("click", (e) => {
 });
 
 insertarDatos.addEventListener("click",(e)=>{
-    if(!e.target || e.target.id !== "btn-completar") return;
+    if(!e.target || !e.target.classList.contains("btn-completar")) return;
     e.preventDefault();
-
+ 
+    const id_pedido = e.target.getAttribute("data-id");
+    if (!id_pedido) return;
+ 
+    const formData = new FormData();
+    formData.append("id_pedido", id_pedido);
+ 
     fetch("./admin/completar_pedido.php", {
         method: "POST",
+        body: formData,
     })
     .then(response => response.text())
-    .then(() => { location.reload(); })
+    .then(() => { 
+        pedidos.click();
+    })
     .catch(err => console.error("Error al actualizar:", err));
 })
 

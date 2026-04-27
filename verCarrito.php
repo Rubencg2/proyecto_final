@@ -187,7 +187,9 @@ session_start();
                     <span id="resumen-final"><?= number_format($totalFinal, 2) ?>€</span>
                 </div>
 
-                <button class="btn-pagar" id="btn-procesar">PROCESAR PEDIDO</button>
+                <form action="./procesarPedidos.php" method="post">
+                    <button class="btn-pagar" id="btn-procesar">PROCESAR PEDIDO</button>
+                </form>
             </div>
             <?php
         }

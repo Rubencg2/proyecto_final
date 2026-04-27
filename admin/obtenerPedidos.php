@@ -1,6 +1,6 @@
 <?php
 include("../conexion_bd.php");
-$consultapedidos = "SELECT p.fecha, p.total, p.estado, u.email FROM pedidos p INNER JOIN usuarios u ON p.id_usuario = u.id";
+$consultapedidos = "SELECT p.id, p.fecha, p.total, p.estado, u.email FROM pedidos p INNER JOIN usuarios u ON p.id_usuario = u.id";
 $pedidos_res = $conn->query($consultapedidos);
 
 if($pedidos_res->num_rows == 0){
@@ -36,7 +36,7 @@ if($pedidos_res->num_rows == 0){
                     <td data-label="Estado"><?=$fila["estado"]?></td>
                     <td data-label="Opciones">
                     <?php if($fila["estado"]!=='completado'){
-                       ?><button class="btn-editar" id="btn-completar">Completar</button><?php
+                       ?><button class="btn-editar btn-completar" data-id=<?=$fila["id"]?>>Completar</button><?php
                     }
                     ?> 
                     </td>   
