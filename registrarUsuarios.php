@@ -28,8 +28,14 @@ session_start();
         $contrasena = $_POST["contrasena"];
         $confirmarC = $_POST["confirmarC"];
 
+
         if ($contrasena !== $confirmarC) {
             header("Location: registro.php?error_contrasena=1");
+            exit();
+        }
+
+        if(!preg_match('/^(?=.*[0-9]).{8,}$/', $contrasena)){
+            header("Location: registro.php?error_pass=1");
             exit();
         }
 

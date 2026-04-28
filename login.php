@@ -8,6 +8,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesion || La casa del futbol</title>
     <link rel="stylesheet" href="./CSS/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="./CSS/estilos.css">
     <script src="./JS/bootstrap.bundle.min.js"></script>
 </head>
@@ -38,7 +39,10 @@ session_start();
                     </div>
                     <div class="input-group">
                         <label for="password">Contraseña</label>
-                        <input type="password" name="contrasena" id="contrasena" placeholder="">
+                        <div class="contenedorPass">
+                            <input type="password" name="contrasena" id="contrasena">
+                            <i class="bi bi-eye ojo" onclick="mostrarPass('contrasena', this)"></i>
+                        </div>
                         <div class="forgot">
                             <a rel="noopener noreferrer" href="./contrasenaOlvidada.php">Has olvidado tu contraseña?</a>
                         </div>

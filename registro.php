@@ -8,6 +8,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrarse || La casa del futbol</title>
     <link rel="stylesheet" href="./CSS/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="./CSS/estilos.css">
     <script src="./JS/bootstrap.bundle.min.js"></script>
 </head>
@@ -30,18 +31,33 @@ session_start();
                         <input type="email" name="email" id="email" placeholder="">
                     </div>
                     <div class="input-group">
-                        <label for="password">Contraseña</label>
-                        <input type="password" name="contrasena" id="contrasena" placeholder="">
+                        <label for="contrasena">Contraseña</label>
+
+                        <div class="contenedorPass">
+                            <input type="password" name="contrasena" id="contrasena">
+                            <i class="bi bi-eye ojo" onclick="mostrarPass('contrasena', this)"></i>
+                        </div>
                     </div>
                     <div class="input-group">
-                        <label for="password">Confirmar contraseña</label>
-                        <input type="password" name="confirmarC" id="confirmarC" placeholder="">
+                        <label for="confirmarC">Confirmar contraseña</label>
+
+                        <div class="contenedorPass">
+                            <input type="password" name="confirmarC" id="confirmarC">
+                            <i class="bi bi-eye ojo" onclick="mostrarPass('confirmarC', this)"></i>
+                        </div>
                     </div>
                     <?php if(isset($_GET['error_contrasena'])){
                         ?>
                         <p class="mensajeError" id="mensajeError">Las contraseñas no coinciden</p>
                         <?php
                     }
+
+                    if(isset($_GET['error_pass'])){
+                        ?>
+                        <p class="mensajeError">La contraseña debe tener mínimo 8 caracteres y un número</p>
+                        <?php
+                    }
+
                     if(isset($_GET['error3'])){
                         ?>
                         <p class="mensajeError" id="mensajeError">El email introducido ya existe Inicie Sesion</p>

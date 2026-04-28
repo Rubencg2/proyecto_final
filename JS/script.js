@@ -36,11 +36,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('click', function(e) {
         if (e.target && e.target.classList.contains('btn-qty')) {
             e.preventDefault();
-
+ 
             const boton = e.target;
-            const id = boton.getAttribute('data-id');
+            const id     = boton.getAttribute('data-id');
             const accion = boton.getAttribute('data-accion');
-
+ 
             fetch(`actualizarCantidad.php?id=${id}&accion=${accion}`)
                 .then(response => {
                     if (!response.ok) throw new Error('Error en la red');
@@ -48,51 +48,71 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
                 .then(data => {
                     if (data.status === 'success') {
-                        const pError = document.getElementById("error");
-                        const btnProcesar = document.getElementById("btn-procesar");
-
-                        if (data.hayStock === 0) {
-                            pError.innerHTML = 'No hay stock disponible';
-                            if (btnProcesar) {
-                                btnProcesar.disabled = true;
-                                btnProcesar.style.opacity = "0.5"; 
-                                btnProcesar.style.cursor = "not-allowed";
-                            }
-                        } else {
-                            pError.innerHTML = '';
-                            if (btnProcesar) {
-                                btnProcesar.disabled = false;
-                                btnProcesar.style.opacity = "1";
-                                btnProcesar.style.cursor = "pointer";
-                            }
+ 
+                        // Error por stock — ID único por producto (no duplicado)
+                        const pError     = document.getElementById(`error-${id}`);
+                        const btnProcesar = document.getElementById('btn-procesar');
+ 
+                        if (pError) {
+                            pError.innerHTML = data.hayStock === 0
+                                ? 'No hay stock disponible'
+                                : '';
                         }
-
-                        // Actualizamos el input de cantidad
+ 
+                        if (btnProcesar) {
+                            const sinStock = data.hayStock === 0;
+                            btnProcesar.disabled    = sinStock;
+                            btnProcesar.style.opacity = sinStock ? '0.5' : '1';
+                            btnProcesar.style.cursor  = sinStock ? 'not-allowed' : 'pointer';
+                        }
+ 
+                        // Actualizar el contador de cantidad
                         const inputCant = document.getElementById(`cant-${id}`);
                         if (inputCant) inputCant.value = data.nuevaCantidad;
-
-                        // Actualizamos los totales del resumen
+ 
+ 
+                        // Actualizar los totales del resumen
                         const resumenTotal = document.getElementById('resumen-total');
                         const resumenFinal = document.getElementById('resumen-final');
-                        const envioDiv = document.getElementById('envio');
+                        const envioDiv     = document.getElementById('envio');
+ 
 
-                        if (resumenTotal) resumenTotal.innerHTML = data.totalCesta;
-                        if(data.totalCesta<100){
-                            if (envioDiv) envioDiv.style.display = '';
+                        const totalNum = parseFloat(data.totalCesta);
+ 
+                        if (resumenTotal) resumenTotal.innerHTML = data.totalCesta + '€';
+ 
+                        if (totalNum < 100) {
+                            if (envioDiv)     envioDiv.style.display = '';
                             if (resumenFinal) resumenFinal.innerHTML = data.totalConEnvio;
                         } else {
-                            if (envioDiv) envioDiv.style.display = 'none';
+                            if (envioDiv)     envioDiv.style.display = 'none';
                             if (resumenFinal) resumenFinal.innerHTML = data.totalSinEnvio;
                         }
-                        
-                
                     }
                 })
-                .catch(error => console.error('Error:', error));
+                .catch(error => console.error('Error al actualizar carrito:', error));
         }
     });
 });
 
+//FUNCION PARA MOSTRAR CONTRASEÑA EN EL REGISTRO
+function mostrarPass(idInput, icono){
+
+    let input = document.getElementById(idInput);
+
+    if(input.type === "password"){
+        input.type = "text";
+
+        icono.classList.remove("bi-eye");
+        icono.classList.add("bi-eye-slash");
+
+    }else{
+        input.type = "password";
+
+        icono.classList.remove("bi-eye-slash");
+        icono.classList.add("bi-eye");
+    }
+}
 
 // Definimos los IDs que queremos controlar
 const ids = ["logo-Movil", "img-login", "img-pagUsu", "img-carrito"];

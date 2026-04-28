@@ -41,7 +41,7 @@ session_start();
                             <h4><?=$item["nombre"]?></h4>
                             <p>Talla: <b><?=$item["talla"]?></b></p>
                             <p class="precio"><?=$item['precio']?>€</p>
-                            <p class="error" id="error"></p>
+                            <p class="error" id="error-<?=$indice?>"></p>
                         </div>
                         <div class="cart-item-actions text-center">
                             <div class="qty-selector mb-2">
@@ -140,7 +140,7 @@ session_start();
                             <h4><?=$item["nombre"]?></h4>
                             <p>Talla: <b><?=$item["talla"]?></b></p>
                             <p class="precio" id="subtotal-<?=$indice?>"><?=$subtotal?>€</p>
-                            <p class="error" id="error"></p>
+                            <p class="error" id="error-<?=$indice?>"></p>
                         </div>
                         <div class="cart-item-actions text-center">
                             <div class="qty-selector mb-2">
