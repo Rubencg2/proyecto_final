@@ -184,6 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         datosParaEnviarR.append('id_categoria', document.getElementById('id_categoria')?.value || '');
 
+
         fetch('obtenerProductos.php', {
             method: 'POST',
             body: datosParaEnviarR
@@ -274,6 +275,9 @@ function actualizarFiltrosYPrecio() {
 
     datosParaEnviar.append('id_categoria', document.getElementById('id_categoria')?.value || '');
 
+    const cantidad = document.getElementById("cantidad").value;
+    datosParaEnviar.append('por_pagina', cantidad);
+
     // 4. Enviar al servidor
     fetch('obtenerProductos.php', {
         method: 'POST',
@@ -290,6 +294,12 @@ if (rango) {
     rango.addEventListener('change', actualizarFiltrosYPrecio);
 }
 
+const selectCantidad = document.getElementById('cantidad');
+
+if (selectCantidad) {
+    selectCantidad.addEventListener('change', actualizarFiltrosYPrecio);
+}
+
 // También debemos actualizar los otros filtros para que incluyan el precio
 document.querySelectorAll('.filtro').forEach(input => {
     input.addEventListener('change', actualizarFiltrosYPrecio);
@@ -302,20 +312,39 @@ if(document.getElementById('id_categoria')) {
 
 
 function cargarPagina(numeroPagina) {
+    const contenedor = document.getElementById('contenedorProductos');
+    const cantidadPorPagina = document.getElementById("cantidad").value; // Obtener cantidad actual
     
     contenedor.style.opacity = '0.5';
-    fetch('obtenerProductos.php?p=' + numeroPagina)
-        .then(response => response.text())
-        .then(html => {
-            contenedor.innerHTML = html;
-            contenedor.style.opacity = '1';
-            
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        })
-        .catch(error => {
-            console.error('Error al cargar productos:', error);
-            contenedor.style.opacity = '1';
-        });
+
+    const datosPaginacion = new FormData();
+    datosPaginacion.append('por_pagina', cantidadPorPagina);
+    
+    // Añadimos también los filtros actuales para no perderlos al cambiar de página
+    const ligaActiva = document.querySelector('input[name="filtro_liga"]:checked');
+    if (ligaActiva) datosPaginacion.append('filtro_liga', ligaActiva.value);
+    
+    const equipoActivo = document.querySelector('input[name="filtro_equipo"]:checked');
+    if (equipoActivo) datosPaginacion.append('filtro_equipo', equipoActivo.value);
+
+    const rangoPrecio = document.getElementById('rango');
+    if (rangoPrecio) datosPaginacion.append('rango', rangoPrecio.value);
+
+    // Enviamos el número de página como parámetro en la URL o en el FormData
+    fetch('obtenerProductos.php?p=' + numeroPagina, {
+        method: 'POST',
+        body: datosPaginacion
+    })
+    .then(response => response.text())
+    .then(html => {
+        contenedor.innerHTML = html;
+        contenedor.style.opacity = '1';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    })
+    .catch(error => {
+        console.error('Error al cargar productos:', error);
+        contenedor.style.opacity = '1';
+    });
 }
 
 

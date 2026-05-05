@@ -75,7 +75,7 @@ insertarDatos.addEventListener("click", (e)=>{
                 insertarDatos.innerHTML = html;
                 const m = document.getElementById("modalEdicion");
                 if (m) m.style.display = "none";
-                // DATATABLES
+            // DATATABLES
             if (document.getElementById("tablaStock")) {
                 new DataTable('#tablaStock', {
                     responsive: true,
@@ -197,15 +197,15 @@ equipos.addEventListener("click",()=>{
     .catch(err => console.error("Error:", err));
 });
 
-pedidos.addEventListener("click",()=>{
+pedidos.addEventListener("click", () => {
     cerrarMenuMovil();
     fetch('./admin/obtenerPedidos.php', { method: 'POST', body: new FormData() })
     .then(res => res.text())
-    .then(html => { 
+    .then(html => {
         insertarDatos.innerHTML = html;
-        // DATATABLES
+
         if (document.getElementById("tablaPedidos")) {
-            new DataTable('#tablaPedidos', {
+            const table = new DataTable('#tablaPedidos', {
                 responsive: true,
                 language: {
                     url: 'https://cdn.datatables.net/plug-ins/2.0.8/i18n/es-ES.json'
@@ -214,7 +214,20 @@ pedidos.addEventListener("click",()=>{
                 order: [[1, 'asc']],
                 pageLength: 10
             });
-        } 
+
+            // Recalcular total con las filas filtradas
+            function recalcularTotal() {
+                let total = 0;
+                table.column(2, { search: 'applied' }).data().each(function(valor) {
+                    const num = parseFloat(valor.replace('€', '').replace(',', '.'));
+                    if (!isNaN(num)) total += num;
+                });
+                const el = document.getElementById('total-pedidos');
+                if (el) el.textContent = total.toFixed(2) + '€';
+            }
+
+            table.on('draw', recalcularTotal);
+        }
     })
     .catch(err => console.error("Error:", err));
 });

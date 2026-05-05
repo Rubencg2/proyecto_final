@@ -349,6 +349,15 @@ td[data-label="Opciones"] {
     margin: 0;
 }
 
+#contenedor-tabla-pedidos{
+    width: 100%;
+}
+
+.totalFiltrado{
+    font-size: 1.5rem;
+    color: #001f4d;
+}
+
 /* Fuerza a la tabla a expandirse */
 
 .btn-editar {

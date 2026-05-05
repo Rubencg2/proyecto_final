@@ -41,8 +41,17 @@ if($pedidos_res->num_rows == 0){
                     ?> 
                     </td>   
                 </tr>
-                <?php } ?>
+                <?php 
+                } 
+                
+                $total = 0;
+                foreach($pedidos as $fila){
+                    $total += $fila["total"];
+                }
+                ?>
             </tbody>
-        </table>
+            
+        </table> 
+        <p class="totalFiltrado">Total: <strong id="total-pedidos"><?= number_format($total, 2) ?>€</strong></p>
     </div>
 <?php } ?>

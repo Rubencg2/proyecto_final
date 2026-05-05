@@ -228,6 +228,31 @@ header{
 }
 
 
+/* El li del logo está siempre visible pero la imagen puede estar oculta */
+.logo-index {
+    pointer-events: none;
+}
+
+/* Solo activar interacción cuando JS muestra la imagen */
+.logo-index:has(img[style*="inline-block"]) {
+    pointer-events: auto;
+}
+
+/* Ocultar hover cuando los iconos están escondidos */
+li:has(#img-login),
+li:has(#img-pagUsu),
+li:has(#img-carrito) {
+    pointer-events: none;
+}
+
+/* Reactivar cuando JS los muestra al hacer scroll */
+li:has(#img-login[style*="inline-block"]),
+li:has(#img-pagUsu[style*="inline-block"]),
+li:has(#img-carrito[style*="inline-block"]) {
+    pointer-events: auto;
+}
+
+
 
 /* MENU HAMBURGUESA */
 .hamburguesa{
@@ -255,6 +280,14 @@ header{
 /* CARRUSEL DE IMAGENES */
 .imgCarrusel{
     max-height: 400px;
+}
+
+.imgCarrusel {
+    margin: 0 auto;
+    display: block;
+    max-height: 500px;
+    width: auto;
+    object-fit: contain;
 }
 
 
@@ -340,6 +373,50 @@ input[type="range"] {
     height: auto;
 }
 
+
+/* Contenedor principal del selector de cantidad */
+.Ppagina {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding: 10px 15px;
+    background-color: #f8f9fa; /* Gris muy claro de Bootstrap */
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    width: fit-content;
+}
+
+/* Etiqueta "Productos por pagina" */
+.input {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #333;
+    margin-bottom: 0; /* Quitar margen por defecto de Bootstrap */
+}
+
+/* Estilo del Select */
+#cantidad {
+    padding: 6px 12px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    background-color: white;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    outline: none;
+    color: #495057;
+}
+
+/* Efecto al pasar el ratón o hacer click */
+#cantidad:focus {
+    border-color: #0dcaf0; /* Color info de Bootstrap para combinar con tus spinners */
+    box-shadow: 0 0 0 0.25rem rgba(13, 202, 240, 0.25);
+}
+
+#cantidad:hover {
+    border-color: #adb5bd;
+}
 
 
 /* FOOTER */
@@ -467,7 +544,7 @@ footer{
 .sign {
   display: block;
   width: 100%;
-  background-color: rgba(167, 139, 250, 1);
+  background-color: #a78bfa;
   padding: 0.75rem;
   text-align: center;
   color: rgba(17, 24, 39, 1);
@@ -985,6 +1062,15 @@ footer{
         margin-top: 40px;          
         font-size: 14px;           
         width: 100%;               
+    }
+
+    .Ppagina {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    #cantidad {
+        width: 80px;
     }
 
 }

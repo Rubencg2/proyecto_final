@@ -52,13 +52,13 @@ $id_pedido = null;
 if ($esInvitado) {
     // id_usuario = NULL para invitados (la columna admite NULL en la BD)
     $stmt ="INSERT INTO pedidos (id_usuario, fecha, total, estado) VALUES (NULL, '$fecha', '$total', '$estado')";
-    $conn->query($stmt);
+
 } else {
     $stmt ="INSERT INTO pedidos (id_usuario, fecha, total, estado) VALUES ('$id_usuario', '$fecha', '$total', '$estado')";
-    $conn->query($stmt);
+    
 }
 
-if ($stmt->execute()) {
+if ($conn->query($stmt)) {
     $id_pedido = $conn->insert_id;
     $pedidoOk  = true;
 

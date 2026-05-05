@@ -22,21 +22,24 @@ session_start();
         ?>
         
         <!-- CARRUSEL DE IMAGENES -->
-        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" 
+            style="background-image: url('./imagenes/fondobanner.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+            
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="./imagenes/banner1.png" class="d-block w-100 imgCarrusel" alt="...">
+                    <img src="./imagenes/banner1sf.png" class="d-block imgCarrusel" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="./imagenes/banner2.png" class="d-block w-100 imgCarrusel" alt="...">
+                    <img src="./imagenes/banner2sf.png" class="d-block imgCarrusel" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="./imagenes/banner3.png" class="d-block w-100 imgCarrusel" alt="...">
+                    <img src="./imagenes/banner3sf.png" class="d-block imgCarrusel" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="./imagenes/banner4.png" class="d-block w-100 imgCarrusel" alt="...">
+                    <img src="./imagenes/banner4sf.png" class="d-block imgCarrusel" alt="...">
                 </div>
             </div>
+
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
@@ -181,6 +184,17 @@ session_start();
         </aside>
         
         <div class="productos">
+            <div class="Ppagina">
+                <label for="equipoP" class="input">Productos por pagina</label>
+                <select name="cantidad" id="cantidad">
+                    <option value="10" selected>10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
             <div id="contenedorProductos" class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-5"> 
                 <?php include("obtenerProductos.php");?>
             </div>
