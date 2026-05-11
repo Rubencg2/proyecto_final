@@ -10,6 +10,7 @@ session_start();
     <link rel="stylesheet" href="./CSS/bootstrap.min.css">
     <link rel="stylesheet" href="./CSS/estilosCarritoCompra.css">
     <link rel="stylesheet" href="./CSS/estilosProcesarPedidos.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
     <script src="./JS/bootstrap.bundle.min.js"></script>
 </head>
 <body>

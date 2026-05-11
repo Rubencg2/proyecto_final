@@ -9,6 +9,7 @@ session_start();
     <title>Panel de control || La casa del futbol</title>
     <link rel="stylesheet" href="./CSS/estilosPanel.css">
     <link rel="stylesheet" href="./CSS/formularioSubirP.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
 </head>
 <body>
     <?php

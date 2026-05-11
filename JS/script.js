@@ -270,7 +270,7 @@ function actualizarFiltrosYPrecio() {
     const tallaActiva = document.querySelector('input[name="filtro_tallas"]:checked');
     if (tallaActiva) datosParaEnviar.append('filtro_tallas', tallaActiva.value);
 
-    // Filtro de Precio (AQUÍ ENVIAMOS EL VALOR DEL RANGO)
+    // Filtro de Precio
     datosParaEnviar.append('rango', val);
 
     datosParaEnviar.append('id_categoria', document.getElementById('id_categoria')?.value || '');
