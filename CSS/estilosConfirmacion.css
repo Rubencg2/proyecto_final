@@ -10,7 +10,7 @@ body {
     color: #1a1a2e;
 }
 
-/* ── Wrapper centrado ── */
+/* Wrapper centrado */
 .confirmacion-wrapper {
     min-height: calc(100vh - 130px);
     display: flex;
@@ -19,7 +19,7 @@ body {
     padding: 50px 20px;
 }
 
-/* ── Tarjeta principal ── */
+/* Tarjeta principal  */
 .confirmacion-card {
     background: #fff;
     border-radius: 20px;
@@ -36,7 +36,7 @@ body {
     to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ── Icono check animado ── */
+/* Icono check animado*/
 .icono-exito {
     margin: 0 auto 24px;
     width: 80px;
@@ -73,7 +73,7 @@ body {
     100% { stroke-dashoffset: 0; }
 }
 
-/* ── Icono error ── */
+/* Icono error */
 .icono-error {
     width: 80px;
     height: 80px;
@@ -90,7 +90,7 @@ body {
 
 .error-card .titulo { color: #c0392b; }
 
-/* ── Textos principales ── */
+/*  Textos principales */
 .titulo {
     font-size: 2rem;
     font-weight: 800;
@@ -105,7 +105,7 @@ body {
     margin-bottom: 28px;
 }
 
-/* ── Número de pedido ── */
+/* Número de pedido */
 .numero-pedido {
     display: inline-flex;
     align-items: center;
@@ -130,7 +130,7 @@ body {
     color: #002366;
 }
 
-/* ── Resumen de artículos ── */
+/* Resumen de artículos */
 .resumen-articulos {
     text-align: left;
     background: #f7f9fc;
@@ -204,7 +204,7 @@ body {
     white-space: nowrap;
 }
 
-/* ── Totales ── */
+/* Totales */
 .totales {
     display: flex;
     flex-direction: column;
@@ -229,7 +229,7 @@ body {
     margin-top: 4px;
 }
 
-/* ── Info entrega ── */
+/*  Info entrega */
 .info-entrega {
     background: #e8eef8;
     border-radius: 12px;
@@ -256,7 +256,7 @@ body {
     line-height: 1.5;
 }
 
-/* ── Botones ── */
+/* Botones */
 .acciones {
     display: flex;
     gap: 14px;
@@ -301,18 +301,8 @@ body {
     color: #002366;
 }
 
-/* ── Footer ── */
-footer {
-    display: flex;
-    justify-content: center;
-    border-top: 1px solid black;
-    padding-top: 15px;
-    background-color: #0056b3;
-    color: white;
-    height: 65px;
-}
 
-/* ── Responsive ── */
+/* Responsivo */
 @media screen and (max-width: 640px) {
     .confirmacion-card {
         padding: 32px 20px;
