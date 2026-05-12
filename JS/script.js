@@ -239,54 +239,50 @@ const burbuja = document.getElementById('burbuja');
 const contenedor = document.getElementById('contenedorProductos');
 
 function actualizarFiltrosYPrecio() {
-    // 1. Actualizar la burbuja visualmente
-    const val = rango.value;
-    const min = rango.min || 0;
-    const max = rango.max || 100;
-    const porcentaje = Number(((val - min) * 100) / (max - min));
     
-    burbuja.innerHTML = `${val}€`;
-    burbuja.style.left = `calc(${porcentaje}% + (${8 - porcentaje * 0.15}px))`;
+     let val = rango ? rango.value : null;
 
-    // 2. Mostrar Spinner de carga
+    if (rango && burbuja && val !== null) {
+        const min = rango.min || 0;
+        const max = rango.max || 100;
+        const porcentaje = Number(((val - min) * 100) / (max - min));
+        burbuja.innerHTML = `${val}€`;
+        burbuja.style.left = `calc(${porcentaje}% + (${8 - porcentaje * 0.15}px))`;
+    }
+
+    // Spinner de carga
     contenedor.innerHTML = `
         <div class="d-flex justify-content-center my-5">
             <div class="spinner-border text-info" role="status"></div>
         </div>
     `;
 
-    // 3. Recopilar TODOS los filtros activos
+    // Recopilar filtros
     const datosParaEnviar = new FormData();
-    
-    // Filtro de Liga
-    const ligaActiva = document.querySelector('input[name="filtro_liga"]:checked');
-    if (ligaActiva) datosParaEnviar.append('filtro_liga', ligaActiva.value);
 
-    // Filtro de Equipo
+    const ligaActiva   = document.querySelector('input[name="filtro_liga"]:checked');
     const equipoActivo = document.querySelector('input[name="filtro_equipo"]:checked');
+    const tallaActiva  = document.querySelector('input[name="filtro_tallas"]:checked');
+
+    if (ligaActiva)   datosParaEnviar.append('filtro_liga',   ligaActiva.value);
     if (equipoActivo) datosParaEnviar.append('filtro_equipo', equipoActivo.value);
+    if (tallaActiva)  datosParaEnviar.append('filtro_tallas', tallaActiva.value);
 
-    // Filtro de Tallas
-    const tallaActiva = document.querySelector('input[name="filtro_tallas"]:checked');
-    if (tallaActiva) datosParaEnviar.append('filtro_tallas', tallaActiva.value);
-
-    // Filtro de Precio
-    datosParaEnviar.append('rango', val);
+    // Solo añadir precio si el slider existe en esta página
+    if (val !== null) datosParaEnviar.append('rango', val);
 
     datosParaEnviar.append('id_categoria', document.getElementById('id_categoria')?.value || '');
 
-    const cantidad = document.getElementById("cantidad").value;
-    datosParaEnviar.append('por_pagina', cantidad);
+    const cantidad = document.getElementById("cantidad");
+    if (cantidad) datosParaEnviar.append('por_pagina', cantidad.value);
 
-    // 4. Enviar al servidor
+    //Fetch
     fetch('obtenerProductos.php', {
         method: 'POST',
         body: datosParaEnviar
     })
     .then(res => res.text())
-    .then(html => {
-        contenedor.innerHTML = html;
-    })
+    .then(html => { contenedor.innerHTML = html; })
     .catch(err => console.error("Error al filtrar:", err));
 }
 

@@ -51,8 +51,8 @@ session_start();
                             <a href="./paginaUsuario.php">Establecer dirección</a>
                         <?php else: ?>
                             <p><?= $fila["direccion"] ?></p>
-                            <p><?= $fila["provincia"] ?></p>
                             <p><?= $fila["municipio"] ?></p>
+                            <p><?= $fila["provincia"] ?></p>
                             <a href="./paginaUsuario.php" style="font-size:.85rem">Cambiar dirección</a>
                         <?php endif; ?>
 
