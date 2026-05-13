@@ -214,6 +214,11 @@ section {
   border: 1px solid #c2dcf9;
 }
 
+.historia-img img{
+  width: 100%;
+  height: auto;
+}
+
 .historia-img-placeholder {
   display: flex;
   flex-direction: column;

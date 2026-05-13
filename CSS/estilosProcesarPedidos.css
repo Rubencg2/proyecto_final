@@ -108,6 +108,55 @@ a{
   height: auto;
 }
 
+/* ── Formulario invitado ── */
+.form-invitado{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.campo{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.campo label{
+    font-size: .85rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.campo input{
+    padding: 9px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: .9rem;
+    transition: border-color .2s;
+}
+
+.campo input:focus{
+    outline: none;
+    border-color: #002366;
+}
+
+.campo-fila{
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+}
+
+.campo-fila .campo{
+    flex: 1;
+}
+
+.texto-invitado{
+    font-size: .9rem;
+    color: #555;
+    margin-bottom: 8px;
+}
+
 .resumenPedido{
     display: flex;
     flex-direction: column;
@@ -412,20 +461,71 @@ a{
     .procesarPedido{
         flex-direction: column;
         margin: 0;
-        padding: 0;
+        padding: 16px;
         align-items: center;
+        gap: 24px;
+    }
+
+    /* div1 ocupa todo el ancho */
+    .div1{
+        width: 100%;
+        gap: 24px;
+    }
+
+    /* Dirección y pago se apilan en columna */
+    .div2{
+        flex-direction: column;
+        gap: 28px;
+        width: 100%;
     }
 
     .direccion{
-        width: 90%;
+        width: 100%;
     }
 
     .tarjetaCredito{
-        width: 90%;
+        width: 100%;
+    }
+
+    /* Tarjeta de pago ocupa todo el ancho disponible */
+    .payment-method{
+        max-width: 100%;
+    }
+
+    /* Badges en columna, centrados */
+    .div3{
+        flex-direction: column;
+        gap: 16px;
+        padding-top: 20px;
+        align-items: flex-start;
+    }
+
+    .info{
+        width: 100%;
+        gap: 16px;
+        padding: 12px;
+        background-color: #f7f7f7;
+        border-radius: 10px;
+    }
+
+    .info img{
+        width: 44px;
+        height: 44px;
+        flex-shrink: 0;
     }
 
     .resumenPedido{
-        width: 90%;
+        width: 100%;
+    }
+
+    /* Formulario invitado: campos fila se apilan */
+    .campo-fila{
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .campo-fila .campo{
+        width: 100%;
     }
 
     .footer-wrap {
@@ -433,22 +533,22 @@ a{
       }
 
     .footer-grid {
-    grid-template-columns: 1fr;
-    gap: 32px;
-    margin-bottom: 36px;
+        grid-template-columns: 1fr;
+        gap: 32px;
+        margin-bottom: 36px;
     }
 
     .brand-tagline {
-    max-width: 100%;
+        max-width: 100%;
     }
 
     .brand-name {
-    font-size: 24px;
+        font-size: 24px;
     }
 
     .footer-bottom {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
     }
 }

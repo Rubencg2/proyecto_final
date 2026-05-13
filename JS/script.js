@@ -301,7 +301,17 @@ document.querySelectorAll('.filtro').forEach(input => {
     input.addEventListener('change', actualizarFiltrosYPrecio);
 });
 
-// Inicializar burbuja al cargar
+// Inicializar burbuja al cargar (siempre que exista el slider)
+if (rango && burbuja) {
+    const val = rango.value;
+    const min = rango.min || 0;
+    const max = rango.max || 100;
+    const porcentaje = Number(((val - min) * 100) / (max - min));
+    burbuja.innerHTML = `${val}€`;
+    burbuja.style.left = `calc(${porcentaje}% + (${8 - porcentaje * 0.15}px))`;
+}
+
+// Cargar productos filtrados al entrar en páginas de categoría
 if(document.getElementById('id_categoria')) {
     actualizarFiltrosYPrecio();
 }

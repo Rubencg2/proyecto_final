@@ -286,6 +286,7 @@ $conn->close();
     <link rel="stylesheet" href="./CSS/bootstrap.min.css">
     <link rel="stylesheet" href="./CSS/estilos.css">
     <link rel="stylesheet" href="./CSS/estilosConfirmacion.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
     <script src="./JS/bootstrap.bundle.min.js"></script>
 </head>
 <body>

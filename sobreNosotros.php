@@ -38,10 +38,7 @@
         <p>Hoy seguimos trabajando con la misma pasión del primer día, ayudando a cada cliente a encontrar todo lo necesario para disfrutar del fútbol dentro y fuera del campo.</p>
       </div>
       <div class="historia-img">
-        <div class="historia-img-placeholder">
-          <i class="ti ti-photo" aria-hidden="true"></i>
-          <span>Añade tu imagen aquí</span>
-        </div>
+        <img src="./imagenes/sobre-nosotros.png" alt="nosotros">
       </div>
     </div>
   </section>
