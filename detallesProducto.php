@@ -57,30 +57,28 @@ session_start();
                     <div class="descripcion"><p><?=$filas["descripcion"]?></p></div>
                 </div>
                 <div class="precio"><h3 id="precioP"><?=$filas["precio"]?>€<h3></div>
+                <?php
+                // Mensaje de error si se llega desde carrito.php con exceso de stock
+                if (isset($_GET['error'])):
+                    $msgError = match($_GET['error']) {
+                        'stock_maximo' => 'Ya tienes el máximo de stock disponible en el carrito.',
+                        'sin_stock'    => 'No hay stock disponible para este producto.',
+                        default        => ''
+                    };
+                    if ($msgError): ?>
+                        <div class="alert alert-warning py-2 mt-2" role="alert">
+                            <?= $msgError ?>
+                        </div>
+                    <?php endif;
+                endif;
+                ?>
+
                 <div class="cantidad">
                     <label for="cantidad">Cantidad</label>
                     <select name="cantidad" id="cantidad">
                         <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                        <option value="16">16</option>
-                        <option value="17">17</option>
-                        <option value="18">18</option>
-                        <option value="19">19</option>
-                        <option value="20">20</option>
                     </select>
+                    <small id="aviso-stock" style="color:#c0392b;display:none;font-size:.8rem;"></small>
                 </div>
                 <div class="tallas">
                     <h3>Tallas Disponibles</h3>
@@ -93,8 +91,10 @@ session_start();
                         while($tallas = $datosTallas->fetch_assoc()){
                             ?>
                             <label class="talla-item">
-                                <input type="radio" name="talla_seleccionada" value="<?=$tallas["talla"]?>" required>
-                                <span><?=$tallas["talla"]?>(<?=$tallas["stock"]?>)</span>
+                                <input type="radio" name="talla_seleccionada"
+                                       value="<?=$tallas["talla"]?>"
+                                       data-stock="<?=$tallas["stock"]?>" required>
+                                <span><?=$tallas["talla"]?></span>
                             </label>
                             <?php
                         }
@@ -108,6 +108,26 @@ session_start();
                     <?php
                 }
                 ?>
+
+                <script>
+                // Actualiza el select de cantidad según el stock de la talla elegida
+                document.querySelectorAll('input[name="talla_seleccionada"]').forEach(function(radio) {
+                    radio.addEventListener('change', function() {
+                        const stock   = parseInt(this.dataset.stock) || 1;
+                        const select  = document.getElementById('cantidad');
+                        const aviso   = document.getElementById('aviso-stock');
+                        select.innerHTML = '';
+                        for (let i = 1; i <= stock; i++) {
+                            const opt = document.createElement('option');
+                            opt.value = i;
+                            opt.textContent = i;
+                            select.appendChild(opt);
+                        }
+                        aviso.textContent = 'Stock disponible: ' + stock;
+                        aviso.style.display = 'block';
+                    });
+                });
+                </script>
             </div>  
         </form>
     </div>
