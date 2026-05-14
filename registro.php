@@ -1,6 +1,106 @@
-<?php 
+<?php
 session_start();
+include("conexion_bd.php");
+
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+
+if (isset($_POST["registrar"])) {
+
+    $nombre = trim($_POST["nombre"]);
+    $email = trim($_POST["email"]);
+    $contrasena = $_POST["contrasena"];
+    $confirmarC = $_POST["confirmarC"];
+
+    // Verificar contraseñas
+    if ($contrasena !== $confirmarC) {
+        header("Location: registro.php?error_contrasena=1");
+        exit();
+    }
+
+    // Verificar contraseña segura
+    if (!preg_match('/^(?=.*[0-9]).{8,}$/', $contrasena)) {
+        header("Location: registro.php?error_pass=1");
+        exit();
+    }
+
+    // Verificar email repetido
+    $consultaUsuarios = "SELECT * FROM usuarios WHERE email='$email'";
+    $datos = $conn->query($consultaUsuarios);
+
+    if ($datos->num_rows != 0) {
+        header("Location: registro.php?error3=1");
+        exit();
+    }
+
+    // Guardar datos en sesión
+    $_SESSION['tmp_registro'] = [
+        'nombre' => $nombre,
+        'email' => $email,
+        'contrasena' => password_hash($contrasena, PASSWORD_DEFAULT),
+    ];
+
+    // Crear código
+    $codigoAleatorio = random_int(10000, 99999);
+    $expiracion = date("Y-m-d H:i:s", strtotime('+10 minutes'));
+
+    // Eliminar códigos anteriores
+    $eliminarVerificacion = "DELETE FROM verificaciones WHERE email='$email'";
+    $conn->query($eliminarVerificacion);
+
+    // Insertar nuevo código
+    $insertarVerificacion = "INSERT INTO verificaciones (email,codigo,expiracion)
+                             VALUES ('$email','$codigoAleatorio','$expiracion')";
+
+    $conn->query($insertarVerificacion);
+
+    // Enviar correo
+    $mail = new PHPMailer(true);
+
+    try {
+
+        // CONFIGURACION DE ENVIAR CORREO
+        $mail->isSMTP();
+        $mail->Host       = 'smtp.gmail.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'noreply.lacasadelfutbol@gmail.com';
+        $mail->Password   = 'tkgocjbtekwhfwvh';
+        $mail->SMTPSecure = 'tls';
+        $mail->Port       = 587;
+
+        // Destinatarios y contenido
+        $mail->setFrom('noreply.lacasadelfutbol@gmail.com', 'La casa del futbol');
+        $mail->addAddress($email, $nombre);
+        $mail->isHTML(true);
+        $mail->Subject = 'Codigo de verificacion';
+        $mail->Body    = '¡Hola!<br>
+
+                            Gracias por registrarte en La Casa del Futbol. Para terminar de configurar tu cuenta, solo necesitas ingresar este código:
+
+                            <h2>'.$codigoAleatorio.'</h2>
+
+                            Introduce este código en la aplicación para completar el proceso. Este código caducará en 10 minutos.<br>
+
+                            El equipo de La Casa del Futbol';
+
+        $mail->send();
+
+        header("Location: verificar.php");
+        exit();
+
+    } catch (Exception $e) {
+        echo "Error al enviar el correo: {$mail->ErrorInfo}";
+    }
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +114,8 @@ session_start();
     <script src="./JS/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-    <div class="generalSesion">
+
+<div class="generalSesion">
         <div class="izquierda">
             <img src="./imagenes/imgsession.png" class="imgSesion">
         </div>
@@ -22,7 +123,7 @@ session_start();
             <div class="form-container">
                 <p class="title">Registrarse</p>
                 
-                <form class="form" action="registrarUsuarios.php" method="post">
+                <form class="form" method="post">
                     <div class="input-group">
                         <label for="nombre">Nombre y Apellidos</label>
                         <input type="text" name="nombre" id="nombre" placeholder="">
@@ -65,7 +166,7 @@ session_start();
                         <?php
                     }
                     ?><br>
-                    <button class="sign">Registrarse</button>
+                    <button class="sign" name="registrar">Registrarse</button>
                 </form>
                 <p class="signup">Ya tienes cuenta?
                     <a rel="noopener noreferrer" href="./login.php" class="">Iniciar Sesion</a>
@@ -74,5 +175,6 @@ session_start();
         </div>
     </div>
     <script src="./JS/script.js"></script>
+
 </body>
 </html>
