@@ -469,3 +469,342 @@ if (btnAbrirMenu) {
         cerrarMenuMovil();
     });
 }
+
+// =============================================
+// GESTIÓN DE TALLAS Y STOCK
+// =============================================
+
+const tallasStock = document.getElementById("tallasStock");
+
+if (tallasStock) {
+    tallasStock.addEventListener("click", () => {
+        cerrarMenuMovil();
+        fetch('./admin/gestionTallasStock.php')
+            .then(res => res.text())
+            .then(html => {
+                insertarDatos.innerHTML = html;
+
+                if (document.getElementById("tablaTallas")) {
+                    new DataTable('#tablaTallas', {
+                        responsive: true,
+                        language: {
+                            url: 'https://cdn.datatables.net/plug-ins/2.0.8/i18n/es-ES.json'
+                        },
+                        columnDefs: [{ orderable: false, targets: [0, 5] }],
+                        order: [[1, 'asc']],
+                        pageLength: 10
+                    });
+                }
+            })
+            .catch(err => console.error("Error:", err));
+    });
+}
+
+// Abrir modal de tallas al hacer clic en "Gestionar Tallas"
+document.addEventListener("click", (e) => {
+    if (!e.target || !e.target.classList.contains("btn-gestionar-tallas")) return;
+
+    const idProducto = e.target.getAttribute("data-id");
+    if (!idProducto) return;
+
+    const modal = document.getElementById("modalTallas");
+    if (!modal) return;
+
+    // Reset feedback
+    const feedback = document.getElementById("tallas-feedback");
+    if (feedback) { feedback.style.display = "none"; feedback.textContent = ""; }
+
+    // Show loading state
+    document.getElementById("tallas-loading").style.display = "block";
+    document.getElementById("tallas-grid-container").innerHTML = "";
+    document.getElementById("tallas-acciones").style.display = "none";
+    modal.style.display = "flex";
+
+    fetch(`./admin/getTallasProducto.php?id=${idProducto}`)
+        .then(res => res.json())
+        .then(data => {
+            if (data.error) {
+                console.error(data.error);
+                return;
+            }
+
+            // Fill header
+            document.getElementById("tallas-id-producto").value = data.producto.id;
+            document.getElementById("tallas-nombre-producto").textContent = data.producto.nombre;
+            document.getElementById("tallas-precio-producto").textContent = parseFloat(data.producto.precio).toFixed(2) + " €";
+            document.getElementById("tallas-img-producto").src = data.producto.url_imagen;
+
+            // Build talla cards
+            const grid = document.getElementById("tallas-grid-container");
+            grid.innerHTML = "";
+
+            if (data.tallas.length === 0) {
+                grid.innerHTML = "<p style='color:#888;grid-column:1/-1'>No hay tallas disponibles en la base de datos.</p>";
+            } else {
+                data.tallas.forEach(t => {
+                    const card = document.createElement("div");
+                    card.className = "talla-card " + (t.activa ? "activa" : "nueva");
+                    card.dataset.idTalla = t.id_talla;
+
+                    const stockVal = t.activa ? t.stock : 0;
+                    const badgeNueva = !t.activa
+                        ? `<span class="talla-badge-nueva">NUEVA</span>`
+                        : "";
+
+                    card.innerHTML = `
+                        <div class="talla-card-top">
+                            <input type="checkbox"
+                                   class="talla-checkbox"
+                                   data-id-talla="${t.id_talla}"
+                                   ${t.activa ? "checked" : ""}>
+                            <span class="talla-label">${t.talla}</span>
+                            ${badgeNueva}
+                        </div>
+                        <div class="talla-stock-wrap">
+                            <label>Stock:</label>
+                            <input type="number"
+                                   class="talla-stock-input"
+                                   data-id-talla="${t.id_talla}"
+                                   value="${stockVal}"
+                                   min="0"
+                                   ${t.activa ? "" : "disabled"}
+                                   placeholder="0">
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            }
+
+            document.getElementById("tallas-loading").style.display = "none";
+            document.getElementById("tallas-acciones").style.display = "block";
+        })
+        .catch(err => {
+            console.error("Error al cargar tallas:", err);
+            document.getElementById("tallas-loading").style.display = "none";
+        });
+});
+
+// Toggle checkbox: enable/disable stock input and card styles
+document.addEventListener("change", (e) => {
+    if (!e.target || !e.target.classList.contains("talla-checkbox")) return;
+
+    const card       = e.target.closest(".talla-card");
+    const stockInput = card.querySelector(".talla-stock-input");
+    const checked    = e.target.checked;
+
+    stockInput.disabled = !checked;
+
+    if (checked) {
+        card.classList.add("activa");
+        card.classList.remove("nueva");
+        card.classList.add("activando");
+        if (!stockInput.value || stockInput.value === "0") stockInput.value = "0";
+        stockInput.focus();
+    } else {
+        card.classList.remove("activa", "activando");
+        card.classList.add("nueva");
+        stockInput.value = "0";
+    }
+});
+
+// Cerrar modal de tallas
+document.addEventListener("click", (e) => {
+    const modal = document.getElementById("modalTallas");
+    if (!modal) return;
+
+    if (
+        e.target.id === "cerrarModalTallas" ||
+        e.target.id === "btnCancelarTallas" ||
+        (e.target === modal)
+    ) {
+        modal.style.display = "none";
+    }
+});
+
+// Guardar tallas via AJAX
+document.addEventListener("submit", (e) => {
+    if (!e.target || e.target.id !== "formGestionTallas") return;
+    e.preventDefault();
+
+    const idProducto = document.getElementById("tallas-id-producto").value;
+    const cards      = document.querySelectorAll(".talla-card");
+
+    const tallas = Array.from(cards).map(card => {
+        const checkbox   = card.querySelector(".talla-checkbox");
+        const stockInput = card.querySelector(".talla-stock-input");
+        return {
+            id_talla: parseInt(card.dataset.idTalla),
+            stock:    parseInt(stockInput.value) || 0,
+            activa:   checkbox.checked
+        };
+    });
+
+    const btn = document.getElementById("btnGuardarTallas");
+    btn.disabled = true;
+    btn.textContent = "Guardando...";
+
+    fetch("./admin/guardarTallasStock.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id_producto: parseInt(idProducto), tallas })
+    })
+    .then(res => res.json())
+    .then(data => {
+        const feedback = document.getElementById("tallas-feedback");
+        feedback.style.display = "block";
+        if (data.ok) {
+            feedback.className = "exito";
+            feedback.textContent = data.mensaje;
+            // Refresh the table after a short delay
+            setTimeout(() => {
+                document.getElementById("modalTallas").style.display = "none";
+                if (tallasStock) tallasStock.click();
+            }, 1400);
+        } else {
+            feedback.className = "error";
+            feedback.textContent = "Error: " + data.error;
+        }
+    })
+    .catch(err => {
+        console.error("Error al guardar:", err);
+        const feedback = document.getElementById("tallas-feedback");
+        feedback.style.display = "block";
+        feedback.className = "error";
+        feedback.textContent = "Error de conexión al guardar los cambios.";
+    })
+    .finally(() => {
+        btn.disabled = false;
+        btn.textContent = "💾 Guardar Cambios";
+    });
+});
+
+
+// =============================================
+// DETALLE DE PEDIDO
+// =============================================
+
+let pedidoActivoId = null;
+
+// Abrir modal al hacer clic en "Ver detalles"
+document.addEventListener("click", (e) => {
+    if (!e.target || !e.target.classList.contains("btn-ver-pedido")) return;
+
+    const idPedido = e.target.getAttribute("data-id");
+    if (!idPedido) return;
+
+    const modal = document.getElementById("modalDetallePedido");
+    if (!modal) return;
+
+    pedidoActivoId = idPedido;
+
+    // Reset state
+    document.getElementById("detalle-lineas-container").innerHTML = "";
+    document.getElementById("detalle-lineas-loading").style.display = "block";
+    document.getElementById("detalle-resumen").style.display = "none";
+    document.getElementById("detalle-acciones").style.display = "none";
+    modal.style.display = "flex";
+
+    fetch(`./admin/getDetallePedido.php?id=${idPedido}`)
+        .then(res => res.json())
+        .then(data => {
+            if (data.error) { console.error(data.error); return; }
+
+            const p = data.pedido;
+
+            // Header
+            document.getElementById("detalle-id").textContent = p.id;
+            document.getElementById("detalle-fecha").textContent = "Fecha: " + p.fecha;
+
+            const badgeEstado = document.getElementById("detalle-estado-badge");
+            badgeEstado.textContent = p.estado.charAt(0).toUpperCase() + p.estado.slice(1);
+            badgeEstado.className = "badge-estado badge-estado--" + p.estado;
+
+            // User info
+            const nombreCompleto = [p.nombre_usuario, p.apellidos].filter(Boolean).join(" ");
+            document.getElementById("detalle-nombre-usuario").textContent = nombreCompleto || "—";
+            document.getElementById("detalle-email-usuario").textContent  = p.email;
+
+            // Line items
+            const container = document.getElementById("detalle-lineas-container");
+            container.innerHTML = "";
+
+            let subtotal = 0;
+            data.lineas.forEach(l => {
+                subtotal += parseFloat(l.subtotal);
+                const div = document.createElement("div");
+                div.className = "detalle-linea";
+                div.innerHTML = `
+                    <img src="${l.url_imagen}" alt="${l.nombre}" onerror="this.src='./imagenes/foto_perfil.png'">
+                    <div class="detalle-linea-info">
+                        <div class="detalle-linea-nombre">${l.nombre}</div>
+                        <div class="detalle-linea-meta">Talla: <strong>${l.talla}</strong> &nbsp;·&nbsp; Cantidad: <strong>×${l.cantidad}</strong></div>
+                    </div>
+                    <div class="detalle-linea-precios">
+                        <div class="detalle-linea-subtotal">${parseFloat(l.subtotal).toFixed(2)} €</div>
+                        <div class="detalle-linea-unitario">${parseFloat(l.precio_unitario).toFixed(2)} €/ud.</div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+
+            if (data.lineas.length === 0) {
+                container.innerHTML = "<p style='color:#888;text-align:center;padding:20px;'>Sin productos registrados</p>";
+            }
+
+            // Totals
+            document.getElementById("detalle-subtotal").textContent = subtotal.toFixed(2) + " €";
+            document.getElementById("detalle-total").textContent    = parseFloat(p.total).toFixed(2) + " €";
+
+            // Show/hide "Completar" button inside modal
+            const btnCompletar = document.getElementById("btnCompletarDesdeDetalle");
+            btnCompletar.style.display = p.estado !== "completado" ? "inline-block" : "none";
+            btnCompletar.dataset.id = p.id;
+
+            document.getElementById("detalle-lineas-loading").style.display = "none";
+            document.getElementById("detalle-resumen").style.display = "flex";
+            document.getElementById("detalle-acciones").style.display = "flex";
+        })
+        .catch(err => {
+            console.error("Error al cargar detalle:", err);
+            document.getElementById("detalle-lineas-loading").style.display = "none";
+        });
+});
+
+// Completar pedido desde el modal de detalle
+document.addEventListener("click", (e) => {
+    if (!e.target || e.target.id !== "btnCompletarDesdeDetalle") return;
+
+    const idPedido = e.target.dataset.id;
+    if (!idPedido) return;
+
+    const formData = new FormData();
+    formData.append("id_pedido", idPedido);
+
+    e.target.disabled = true;
+    e.target.textContent = "Guardando...";
+
+    fetch("./admin/completar_pedido.php", { method: "POST", body: formData })
+        .then(() => {
+            document.getElementById("modalDetallePedido").style.display = "none";
+            pedidos.click(); // refresh table
+        })
+        .catch(err => console.error("Error:", err))
+        .finally(() => {
+            e.target.disabled = false;
+            e.target.textContent = "✅ Marcar como Completado";
+        });
+});
+
+// Cerrar modal de detalle
+document.addEventListener("click", (e) => {
+    const modal = document.getElementById("modalDetallePedido");
+    if (!modal) return;
+
+    if (
+        e.target.id === "cerrarDetallePedido" ||
+        e.target.id === "btnCerrarDetalle2"   ||
+        e.target === modal
+    ) {
+        modal.style.display = "none";
+    }
+});

@@ -39,6 +39,7 @@ session_start();
                         <li id="ligas">Ligas</li>
                         <li id="equipos">Equipos</li>
                         <li id="pedidos">Pedidos</li>
+                        <li id="tallasStock">Tallas & Stock</li>
                     </ul>
                 </div> 
                 <div class="general-analiticas">

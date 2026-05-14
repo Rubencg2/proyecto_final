@@ -903,3 +903,437 @@ td[data-label="Opciones"] {
         display: block !important;
     }
 }
+
+/* ========================================
+   GESTIÓN DE TALLAS Y STOCK
+   ======================================== */
+
+/* Badges en la tabla principal */
+.badge-tallas {
+    background: #e8f0fe;
+    color: #1a73e8;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+.badge-stock {
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+.badge-stock.stock-ok     { background: #e6f4ea; color: #1e7e34; }
+.badge-stock.stock-bajo   { background: #fff3cd; color: #856404; }
+.badge-stock.stock-agotado{ background: #fdecea; color: #c62828; }
+
+/* MODAL DE TALLAS */
+.modal-tallas-content {
+    max-width: 720px;
+    width: 95%;
+    max-height: 85vh;
+    overflow-y: auto;
+    border-radius: 14px;
+    padding: 32px;
+    background: #fff;
+    position: relative;
+}
+
+#modal-tallas-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+#modal-tallas-header h3 {
+    font-size: 1.3rem;
+    color: #002366;
+    margin: 0;
+}
+
+#modal-tallas-header p {
+    margin: 4px 0 0;
+    font-size: 0.95rem;
+}
+
+/* Grid de tallas */
+#tallas-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+    margin: 20px 0;
+}
+
+/* Tarjeta de cada talla */
+.talla-card {
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 14px;
+    background: #fafafa;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.talla-card.activa {
+    border-color: #002366;
+    background: #f0f4ff;
+    box-shadow: 0 2px 8px rgba(0,35,102,0.1);
+}
+
+.talla-card.nueva {
+    border-color: #ccc;
+    background: #f9f9f9;
+    opacity: 0.7;
+}
+
+.talla-card.nueva.activando {
+    border-color: #28a745;
+    background: #f0fff4;
+    opacity: 1;
+}
+
+/* Fila superior: checkbox + label de talla */
+.talla-card-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.talla-checkbox {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #002366;
+}
+
+.talla-label {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #002366;
+    flex: 1;
+}
+
+.talla-badge-nueva {
+    font-size: 0.68rem;
+    background: #28a745;
+    color: #fff;
+    padding: 1px 7px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+/* Input de stock */
+.talla-stock-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.talla-stock-wrap label {
+    font-size: 0.8rem;
+    color: #666;
+    min-width: 38px;
+}
+
+.talla-stock-input {
+    width: 100%;
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    text-align: center;
+    transition: border-color 0.2s;
+}
+
+.talla-stock-input:focus {
+    outline: none;
+    border-color: #002366;
+}
+
+.talla-stock-input:disabled {
+    background: #eee;
+    color: #aaa;
+    cursor: not-allowed;
+}
+
+/* Leyenda y acciones */
+.tallas-leyenda {
+    font-size: 0.82rem;
+    color: #888;
+    margin: 0;
+}
+
+.btn-cancelar-tallas {
+    padding: 9px 22px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    background: #fff;
+    color: #555;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.btn-cancelar-tallas:hover {
+    border-color: #888;
+}
+
+/* Feedback */
+#tallas-feedback.exito {
+    background: #e6f4ea;
+    color: #1e7e34;
+    border: 1px solid #a8d5b5;
+}
+
+#tallas-feedback.error {
+    background: #fdecea;
+    color: #c62828;
+    border: 1px solid #f5c6cb;
+}
+
+@media (max-width: 600px) {
+    .modal-tallas-content {
+        padding: 20px 14px;
+    }
+    #tallas-grid-container {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+}
+
+/* Override specific para el modal de tallas (usa flex centrado) */
+#modalTallas {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(2px);
+}
+
+
+/* ========================================
+   MODAL DETALLE DE PEDIDO
+   ======================================== */
+
+/* Overlay */
+#modalDetallePedido {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.52);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(2px);
+}
+
+/* Panel deslizable desde la derecha */
+#modal-detalle-content {
+    background: #fff;
+    width: min(560px, 96vw);
+    max-height: 88vh;
+    overflow-y: auto;
+    border-radius: 16px;
+    padding: 32px 28px 24px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    position: relative;
+    animation: slideUpDetalle 0.25s ease;
+}
+
+@keyframes slideUpDetalle {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.btn-cerrar-detalle {
+    position: absolute;
+    top: 16px;
+    right: 18px;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #999;
+    line-height: 1;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: background 0.15s, color 0.15s;
+}
+.btn-cerrar-detalle:hover { background: #f0f0f0; color: #333; }
+
+/* Header del pedido */
+#detalle-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+#detalle-header h2 {
+    font-size: 1.3rem;
+    color: #002366;
+    margin: 0;
+}
+
+/* Badges de estado */
+.badge-estado {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.badge-estado--pendiente   { background: #fff3cd; color: #856404; }
+.badge-estado--completado  { background: #e6f4ea; color: #1e7e34; }
+.badge-estado--cancelado   { background: #fdecea; color: #c62828; }
+.badge-estado--procesando  { background: #e8f0fe; color: #1a73e8; }
+
+/* Info de usuario */
+#detalle-usuario-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+}
+
+/* Líneas de productos */
+#detalle-lineas-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.detalle-linea {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    background: #fafafa;
+    transition: box-shadow 0.15s;
+}
+.detalle-linea:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+
+.detalle-linea img {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+    border: 1px solid #eee;
+}
+
+.detalle-linea-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.detalle-linea-nombre {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #222;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.detalle-linea-meta {
+    font-size: 0.82rem;
+    color: #888;
+    margin-top: 3px;
+}
+
+.detalle-linea-precios {
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.detalle-linea-subtotal {
+    font-weight: 700;
+    color: #002366;
+    font-size: 1rem;
+}
+
+.detalle-linea-unitario {
+    font-size: 0.8rem;
+    color: #aaa;
+    margin-top: 2px;
+}
+
+/* Resumen de totales */
+#detalle-resumen {
+    border-top: 2px solid #f0f0f0;
+    padding-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.detalle-resumen-fila {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.92rem;
+    color: #555;
+}
+
+.detalle-resumen-total {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #002366;
+    border-top: 1px solid #e0e0e0;
+    padding-top: 10px;
+    margin-top: 4px;
+}
+
+/* Acciones del modal */
+#detalle-acciones {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.btn-completar-detalle {
+    padding: 9px 20px;
+    background: #002366;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.btn-completar-detalle:hover { background: #001a4d; }
+
+/* Badge en tabla de pedidos */
+.td-opciones-pedido {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+@media (max-width: 600px) {
+    #modal-detalle-content { padding: 22px 14px 18px; }
+    .detalle-linea img { width: 50px; height: 50px; }
+    #detalle-header { flex-direction: column; gap: 10px; }
+    .td-opciones-pedido { flex-direction: column; }
+}
