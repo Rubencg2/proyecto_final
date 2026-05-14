@@ -375,6 +375,14 @@ $conn->close();
                 </div>
             </div>
 
+            <!-- Notificación por email -->
+            <div class="info-entrega">
+                <div class="info-item">
+                    <img src="./imagenes/camion.png" alt="envío">
+                    <p>Se enviará confirmación a <b><?= htmlspecialchars($email) ?></b></p>
+                </div>
+            </div>
+
             <!-- Botones -->
             <div class="acciones">
                 <a href="./index.php" class="btn-primario">Seguir comprando</a>
