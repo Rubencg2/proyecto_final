@@ -4,11 +4,9 @@ include("../conexion_bd.php");
 $nombre = $_POST['nombreP'];
 $descripcion = $_POST['descripcionP'];
 $precio = $_POST['precioP'];
-$stock = $_POST['stockP'];
 $id_equipo = $_POST['equipoP'];
 $categoria = $_POST['categoriaP'];
 $id_liga = $_POST['ligaP'];
-$id_talla = $_POST['tallaP'];
 $etiquetas = $_POST['etiquetas'];
 
 //Configuración de imagen
@@ -31,11 +29,6 @@ $sql = "INSERT INTO productos (nombre, descripcion, precio, etiquetas, url_image
 
 if ($conn->query($sql) === TRUE) {
     $id_producto = $conn->insert_id;
-
-    // 6. Insertar Talla y Stock
-    $insertarTalla = "INSERT INTO producto_tallas (id_producto, id_talla, stock) 
-                    VALUES ('$id_producto', '$id_talla', '$stock')";
-    $conn->query($insertarTalla);
 
     // 7. Mover imagen al servidor
     if (move_uploaded_file($_FILES["archivo_subida"]["tmp_name"], ".".$ruta_completa)) {

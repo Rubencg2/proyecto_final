@@ -1,8 +1,10 @@
 <?php
 include("../conexion_bd.php");
-$consultapedidos = "SELECT p.id, p.fecha, p.total, p.estado, u.email, u.nombre AS nombre_usuario
+$consultapedidos = "SELECT p.id, p.fecha, p.total, p.estado,
+                           COALESCE(u.email, '(Invitado)') AS email,
+                           COALESCE(u.nombre, 'Invitado') AS nombre_usuario
                     FROM pedidos p
-                    INNER JOIN usuarios u ON p.id_usuario = u.id
+                    LEFT JOIN usuarios u ON p.id_usuario = u.id
                     ORDER BY p.fecha DESC, p.id DESC";
 $pedidos_res = $conn->query($consultapedidos);
 

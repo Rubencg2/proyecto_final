@@ -33,10 +33,6 @@ include("../conexion_bd.php");
                     <input class="input__field" type="number" step="0.01" min="0" name="precioP"> 
                 </div>
                 <div class="input">
-                    <label class="input__label">Stock</label>
-                    <input class="input__field" type="number" name="stockP"> 
-                </div>
-                <div class="input">
                     <label for="equipoP" class="input__label">Equipo</label>
                     <select name="equipoP" id="equipoP" class="input__field">
                     <?php
@@ -73,16 +69,7 @@ include("../conexion_bd.php");
                     ?>
                     </select>
                 </div>
-                <div class="input">
-                    <label for="tallaP" class="input__label">Talla</label>
-                    <select name="tallaP" id="tallaP" class="input__field">
-                    <?php
-                    while($filaT=$datosTalla->fetch_assoc()){
-                        ?><option value="<?=$filaT["id"]?>"><?=$filaT["talla"]?></option><?php
-                    }
-                    ?>
-                    </select>
-                </div>
+                
                 <div class="input">
                     <label class="input_label">Etiquetas para Buscar</label>
                     <textarea name="etiquetas"></textarea>

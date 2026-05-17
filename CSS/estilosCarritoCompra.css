@@ -166,6 +166,30 @@ a{
     display: flex !important;
 }
 
+/* El li del logo está siempre visible pero la imagen puede estar oculta */
+.logo-index {
+    pointer-events: none;
+}
+
+/* Solo activar interacción cuando JS muestra la imagen */
+.logo-index:has(img[style*="inline-block"]) {
+    pointer-events: auto;
+}
+
+/* Ocultar hover cuando los iconos están escondidos */
+li:has(#img-login),
+li:has(#img-pagUsu),
+li:has(#img-carrito) {
+    pointer-events: none;
+}
+
+/* Reactivar cuando JS los muestra al hacer scroll */
+li:has(#img-login[style*="inline-block"]),
+li:has(#img-pagUsu[style*="inline-block"]),
+li:has(#img-carrito[style*="inline-block"]) {
+    pointer-events: auto;
+}
+
 
 /* MENU HAMBURGUESA */
 .hamburguesa{

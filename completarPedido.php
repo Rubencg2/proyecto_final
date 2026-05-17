@@ -91,6 +91,9 @@ if ($conn->query($stmt)) {
         unset($_SESSION["temp_carrito"]);
     } else {
         unset($_SESSION["carrito"]);
+        // Limpiar también la tabla carrito en BD para que no reaparezcan
+        // los artículos al volver a iniciar sesión
+        $conn->query("DELETE FROM carrito WHERE id_usuario = '$id_usuario'");
     }
 }
  

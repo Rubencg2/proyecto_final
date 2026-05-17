@@ -54,7 +54,7 @@
         </li>
         <li><a href="./index.php">Inicio</a></li>
         <li><a href="./camisetas.php">Camisetas</a></li>
-        <li><a href="./chandals.php">Chandals</a></li>
+        <li><a href="./chandals.php">Chandales</a></li>
         <li><a href="./retros.php">Camisetas Retro</a></li>
         <li><a href="./selecciones.php">Selecciones</a></li>
         <?php
