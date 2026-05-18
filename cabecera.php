@@ -56,6 +56,7 @@
         <li><a href="./camisetas.php">Camisetas</a></li>
         <li><a href="./chandals.php">Chandales</a></li>
         <li><a href="./retros.php">Camisetas Retro</a></li>
+        <li><a href="./sobreNosotros.php">Sobre Nosotros</a></li>
         <?php
         if(isset($_SESSION["email"]) && $_SESSION["rol_usuario"]==="admin"){
             ?>
