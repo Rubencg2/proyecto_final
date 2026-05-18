@@ -28,16 +28,16 @@ session_start();
             
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="./imagenes/banner1sf.png" class="d-block imgCarrusel" alt="...">
+                    <img src="./imagenes/banner1.png" class="d-block imgCarrusel" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="./imagenes/banner2sf.png" class="d-block imgCarrusel" alt="...">
+                    <img src="./imagenes/banner2.png" class="d-block imgCarrusel" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="./imagenes/banner3sf.png" class="d-block imgCarrusel" alt="...">
+                    <img src="./imagenes/banner3.png" class="d-block imgCarrusel" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="./imagenes/banner4sf.png" class="d-block imgCarrusel" alt="...">
+                    <img src="./imagenes/banner4.png" class="d-block imgCarrusel" alt="...">
                 </div>
             </div>
 
