@@ -312,10 +312,11 @@ if (rango && burbuja) {
 }
 
 // Cargar productos filtrados al entrar en páginas de categoría
-if(document.getElementById('id_categoria')) {
-    actualizarFiltrosYPrecio();
-}
-
+document.addEventListener('DOMContentLoaded', () => {
+    if(document.getElementById('id_categoria')) {
+        actualizarFiltrosYPrecio();
+    }
+});
 
 function cargarPagina(numeroPagina) {
     const contenedor = document.getElementById('contenedorProductos');
@@ -335,6 +336,11 @@ function cargarPagina(numeroPagina) {
 
     const rangoPrecio = document.getElementById('rango');
     if (rangoPrecio) datosPaginacion.append('rango', rangoPrecio.value);
+
+    datosPaginacion.append(
+        'id_categoria',
+        document.getElementById('id_categoria')?.value || ''
+    );
 
     // Enviamos el número de página como parámetro en la URL o en el FormData
     fetch('obtenerProductos.php?p=' + numeroPagina, {
