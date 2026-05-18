@@ -389,3 +389,39 @@ if (menu) {
 
 
 
+
+// ===== FILTRO EQUIPOS: VER MÁS / VER MENOS =====
+function toggleEquipos() {
+    const extra = document.getElementById('equipos-extra');
+    const btn   = document.getElementById('btnVerMasEquipos');
+    const icon  = document.getElementById('iconoEquipos');
+
+    if (!extra) return;
+
+    const expandido = extra.classList.toggle('visible');
+    btn.innerHTML = expandido
+        ? '<i class="ti ti-chevron-up" id="iconoEquipos"></i> Ver menos'
+        : '<i class="ti ti-chevron-down" id="iconoEquipos"></i> Ver más';
+}
+
+// ===== REGISTRO: HINT REQUISITOS CONTRASEÑA =====
+function validarHintPass(valor) {
+    const cumpleLong  = valor.length >= 8;
+    const cumpleNum   = /[0-9]/.test(valor);
+
+    const spanLong = document.getElementById('hint-longitud');
+    const spanNum  = document.getElementById('hint-numero');
+
+    if (spanLong) {
+        spanLong.className = cumpleLong ? 'cumple' : 'no-cumple';
+        spanLong.innerHTML = cumpleLong
+            ? '<i class="bi bi-check-circle-fill"></i> Mínimo 8 caracteres'
+            : '<i class="bi bi-circle"></i> Mínimo 8 caracteres';
+    }
+    if (spanNum) {
+        spanNum.className = cumpleNum ? 'cumple' : 'no-cumple';
+        spanNum.innerHTML = cumpleNum
+            ? '<i class="bi bi-check-circle-fill"></i> Al menos 1 número'
+            : '<i class="bi bi-circle"></i> Al menos 1 número';
+    }
+}

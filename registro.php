@@ -136,8 +136,16 @@ if (isset($_POST["registrar"])) {
                         <label for="contrasena">Contraseña</label>
 
                         <div class="contenedorPass">
-                            <input type="password" name="contrasena" id="contrasena">
+                            <input type="password" name="contrasena" id="contrasena" oninput="validarHintPass(this.value)">
                             <i class="bi bi-eye ojo" onclick="mostrarPass('contrasena', this)"></i>
+                        </div>
+                        <div class="hint-contrasena" id="hintContrasena">
+                            <span id="hint-longitud" class="no-cumple">
+                                <i class="bi bi-circle" id="icon-longitud"></i> Mínimo 8 caracteres
+                            </span>
+                            <span id="hint-numero" class="no-cumple">
+                                <i class="bi bi-circle" id="icon-numero"></i> Al menos 1 número
+                            </span>
                         </div>
                     </div>
                     <div class="input-group">

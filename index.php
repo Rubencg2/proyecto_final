@@ -81,13 +81,22 @@ session_start();
                 <input type="radio" id="todos" name="filtro_equipo" value="todos" class="filtro">
                 <label for="todos">Todos los equipos</label><br>
                 <?php
+                $contadorEquipo = 0;
                 while($fila=$datosEquipos->fetch_assoc()){
+                    if($contadorEquipo === 5) echo '<div class="equipos-extra" id="equipos-extra">';
                 ?>
                     <input type="radio" id=<?=$fila["id"]?> name="filtro_equipo" value=<?=$fila["id"]?> class="filtro">
                     <label for=<?=$fila["id"]?>><?=$fila["equipo"]?></label><br>
                 <?php
+                    $contadorEquipo++;
                 }
+                if($contadorEquipo > 5) echo '</div>';
+                if($contadorEquipo > 5){
                 ?>
+                <button type="button" class="btn-ver-mas-equipos" id="btnVerMasEquipos" onclick="toggleEquipos()">
+                    <i class="ti ti-chevron-down" id="iconoEquipos"></i> Ver más
+                </button>
+                <?php } ?>
 
                 <br>
             <?php
